@@ -2,13 +2,13 @@ import messageService from '../../services/messageService'
 
 const state = {
   messages: []
-}
+};
 
 const getters = {
   messages: state => {
     return state.messages
   }
-}
+};
 
 const actions = {
   getMessages ({ commit }) {
@@ -24,10 +24,10 @@ const actions = {
     })
   },
   deleteMessage( { commit }, msgId) {
-    messageService.deleteMessage(msgId)
+    messageService.deleteMessage(msgId);
     commit('deleteMessage', msgId)
   }
-}
+};
 
 const mutations = {
   setMessages (state, messages) {
@@ -39,7 +39,7 @@ const mutations = {
   deleteMessage(state, msgId) {
     state.messages = state.messages.filter(obj => obj.pk !== msgId)
   }
-}
+};
 
 export default {
   namespaced: true,

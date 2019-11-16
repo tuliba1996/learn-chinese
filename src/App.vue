@@ -1,21 +1,44 @@
 <template>
-  <div id="app">
-    <h1>Django VueJs Template</h1>
-    <div id="nav">
-     <router-link :to="{ name: 'home' }">Vue</router-link> |
-     <router-link :to="{ name: 'messages' }">Django Rest</router-link>
-    </div>
-    <router-view/>
-  </div>
+
+
+
+        <el-container id="app">
+            <el-header>
+                <MenuBar/>
+            </el-header>
+            <el-container>
+                <el-aside width="200px"></el-aside>
+                <el-main>
+                    <router-view/>
+                </el-main>
+            </el-container>
+        </el-container>
+
 </template>
 
+<script>
+    import MenuBar from './components/MenuBar'
+
+    export default {
+        name: "App",
+        data() {
+            return {
+                activeIndex: '1',
+                activeIndex2: '1'
+            };
+        },
+        components: {
+            MenuBar
+          },
+        methods: {}
+    }
+</script>
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+    }
 </style>

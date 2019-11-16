@@ -31,11 +31,15 @@
 </template>
 
 <script>
+
+  import MenuBar from './MenuBar'
+
 export default {
   name: 'VueDemo',
   props: {
 
-  }
+  },
+
 }
 </script>
 
