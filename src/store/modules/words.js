@@ -1,7 +1,8 @@
 import wordServices from '../../services/wordServices'
 
 const state = {
-    words: []
+    words: [],              // list words
+    word:{}                 // one word
 };
 
 const getters = {
@@ -11,14 +12,13 @@ const getters = {
 };
 
 const actions = {
-    getWord({commit}) {
-        wordServices.fetchWord()
+    getWord({commit}, wordId) {
+        wordServices.fetchWord(wordId)
             .then(word => {
-                commit('setWords', word)
+                commit('setWord', word)
             })
     },
     getWords({commit}, lessonId) {
-      console.log(`lessid`, lessonId);
         wordServices.fetchWordInLesson(lessonId)
             .then(words => {
                 commit('setWords', words)
@@ -37,6 +37,9 @@ const actions = {
 };
 
 const mutations = {
+    setWord(state, word){
+        state.word = word
+    },
     setWords(state, words) {
         state.words = words
     },

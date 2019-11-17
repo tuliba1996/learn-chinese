@@ -1,8 +1,8 @@
 import api from '@/services/api'
 
 export default {
-  fetchWord(){
-    return api.get(`word/`)
+  fetchWord(wordId){
+    return api.get(`word/${wordId}`)
               .then(response => response.data)
   },
   fetchWordInLesson(lessonId) {

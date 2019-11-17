@@ -4,9 +4,8 @@
                 :data="words"
                 style="width: 100%">
             <el-table-column
-                    prop="id"
-                    label="STT"
-                    width="200">
+                type="index"
+                width="200">
             </el-table-column>
             <el-table-column
                     prop="chinese"
@@ -22,6 +21,13 @@
                     prop="vietnamese"
                     label="Vietnamese"
                     width="200">
+            </el-table-column>
+            <el-table-column
+                    label="Detail"
+                    width="200">
+                <template slot-scope="scope">
+                    <router-link :to="{ name: 'word', params: { id: scope.row.id } }">Detail</router-link>
+                </template>
             </el-table-column>
         </el-table>
     </el-container>
