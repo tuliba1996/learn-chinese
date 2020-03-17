@@ -10,8 +10,46 @@ gunicorn = "*"
 whitenoise = "==4.0"
 dj-database-url = "*"
 psycopg2-binary = "*"
+twilio = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.6"
+
+# The app itself
+
+-e .
+
+# Additional runtime dependencies
+
+# Example app
+
+django-debug-toolbar
+django-bootstrap-form
+django-user-sessions
+
+# Testing
+
+coverage
+flake8
+tox
+tox-pyenv
+detox
+mock
+isort
+
+# Translation
+
+transifex-client
+
+# Documentation
+
+Sphinx
+sphinx_rtd_theme
+
+# Build
+
+wheel
+bumpversion
+twine

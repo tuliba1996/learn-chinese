@@ -1,5 +1,6 @@
 from rest_framework import viewsets, filters, renderers
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
@@ -16,6 +17,8 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 
 class LessonViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     filter_backends = (filters.SearchFilter,)

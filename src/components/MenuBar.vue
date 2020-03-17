@@ -13,6 +13,9 @@
             <el-menu-item  index="lessons">
                 Lesson
             </el-menu-item>
+            <el-menu-item index="login">
+                Login
+            </el-menu-item>
         </el-menu>
     </div>
 </template>

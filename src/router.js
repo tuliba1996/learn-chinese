@@ -34,6 +34,10 @@ export default new Router({
             path: '/word/:id',
             name: 'word',
             component: PageWord
+        },
+        {
+            path: '/account/login',
+            name: 'login',
         }
     ]
 })
