@@ -1,13 +1,13 @@
 <template>
     <div>
         <el-menu
-                :default-active="activeIndex2"
-                router="true"
+                :default-active="activeIndex"
                 class="el-menu-demo"
                 mode="horizontal"
                 background-color="#545c64"
                 text-color="#fff"
                 active-text-color="#ffd04b"
+                :router="route"
         >
             <el-menu-item  index="/">Home</el-menu-item>
             <el-menu-item  index="lessons">
@@ -26,7 +26,7 @@
         data() {
             return {
                 activeIndex: '1',
-                activeIndex2: '1'
+                route: true
             };
         },
         methods: {}

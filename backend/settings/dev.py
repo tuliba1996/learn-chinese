@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-# APPEND_SLASH = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

@@ -5,6 +5,7 @@ import Messages from '@/components/Messages'
 import Lessons from '@/pages/Lessons'
 import PageLesson from '@/pages/PageLesson';
 import PageWord from '@/pages/PageWord';
+import Login from '@/pages/auth/Login';
 
 Vue.use(Router);
 
@@ -36,8 +37,9 @@ export default new Router({
             component: PageWord
         },
         {
-            path: '/account/login',
+            path: '/login',
             name: 'login',
+            component:  Login
         }
     ]
 })

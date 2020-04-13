@@ -1,6 +1,14 @@
 // const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
 module.exports = {
+    chainWebpack: config => {
+        config.module
+          .rule('html')
+            .test(/\.html$/i)
+            .use('html-loader')
+                .loader('html-loader')
+                .end()
+      },
     outputDir: 'dist',
     assetsDir: 'static',
     // baseUrl: IS_PRODUCTION
@@ -17,5 +25,6 @@ module.exports = {
                 target: 'http://localhost:8000/',
             }
         }
-    }
-}
+    },
+
+};

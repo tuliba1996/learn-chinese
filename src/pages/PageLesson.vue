@@ -56,7 +56,7 @@
         }),
         created() {
             this.lessonId = this.$route.params.id;
-            console.log(this.lessonId);
+            // console.log(this.lessonId);
             this.$store.dispatch('words/getWords', this.lessonId);
         }
     }

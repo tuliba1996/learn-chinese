@@ -1,33 +1,22 @@
 <template>
-        <el-container id="app">
-            <el-header>
-                <MenuBar/>
-            </el-header>
-            <el-container>
-                <el-aside width="200px"></el-aside>
-                <el-main>
-                    <router-view/>
-                </el-main>
-            </el-container>
-        </el-container>
+    <div id="app">
+        <el-header>
+            <MenuBar/>
+        </el-header>
+        <router-view/>
+    </div>
 
 </template>
 
 <script>
     import MenuBar from './components/MenuBar'
-
+    import Store from './store/index'
     export default {
         name: "App",
-        data() {
-            return {
-                activeIndex: '1',
-                activeIndex2: '1'
-            };
-        },
         components: {
-            MenuBar
-          },
-        methods: {}
+            MenuBar,
+            Store
+        },
     }
 </script>
 <style lang="styl" scoped>

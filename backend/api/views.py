@@ -34,6 +34,8 @@ class LessonViewSet(viewsets.ModelViewSet):
 
 
 class WordViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+
     queryset = Word.objects.all()
     serializer_class = WordSerializer
     filter_backends = (filters.SearchFilter,)
