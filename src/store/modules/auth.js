@@ -1,45 +1,59 @@
-import authServices from '../../services/authServices'
+import {authServices} from '../../services/authServices'
+import router from '@/router'
 
+const user = JSON.parse(localStorage.getItem('user'));
+const state = user
+    ? {status: {loggedIn: true}, user}
+    : {status: {}, user: null};
 
-const state = {
-    token: '',
-  show_error: false
-};
-
-
-const getters = {
-  token: state => {
-    return state.token
-  }
-};
 
 
 const actions = {
-  login({ commit }, payload) {
-    authServices.login(payload)
-    .then(data => {
-      commit('setToken', data)
-    })
-    .catch(err =>{
-      commit('showError', err)
-    })
-  },
+    login({ commit}, {username, password}) {
+        commit('loginRequest', username);
+        authServices.login({username,password})
+            .then(user => {
+                commit('loginSuccess', user);
+                router.push('/');
+                // setTimeout(() => {
+                //     // display success message after route change completes
+                //     dispatch('alert/success', 'Registration successful', { root: true });
+                // })
+                },
+                error => {
+                    commit('loginFailure', error);
+                    // dispatch('alert/error', error, {root: true});
+                }
+            )
+    },
+    logout({ commit }) {
+        authServices.logout();
+        commit('logout');
+    },
 };
 
 const mutations = {
-  setToken (state, data) {
-    state.token = data.access;
-    state.show_error = false;
-  },
-  showError(state, err) {
-    state.show_error = true;
-  }
+    loginRequest(state, user) {
+        state.status = {loggingIn: true};
+        state.user = user;
+    },
+    loginSuccess(state, user) {
+        state.status = {loggedIn: true};
+        state.user = user;
+    },
+    loginFailure(state) {
+        state.status = {};
+        state.user = null;
+    },
+    logout(state) {
+        state.status = {};
+        state.user = null;
+    },
 };
 
 export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
+    namespaced: true,
+    state,
+    actions,
+    mutations
 }
