@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from backend.api.models import Message, Lesson, Word
+from backend.api.models.messages import Message
+from backend.api.models.words import Word
+from backend.api.models.lessons import Lesson
 
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
@@ -19,3 +21,5 @@ class WordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
         fields = '__all__'
+
+

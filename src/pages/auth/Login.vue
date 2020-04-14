@@ -9,7 +9,7 @@
           </el-alert>
         <el-form size="medium" status-icon ref="ruleForm" label-width="120px" class="demo-ruleForm">
             <el-form-item  label="Username" prop="pass">
-                <el-input type="username" v-model="username" autocomplete="off"></el-input>
+                <el-input type="username" v-model="email" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="checkPass">
                 <el-input type="password" v-model="password" autocomplete="off"></el-input>
@@ -28,7 +28,7 @@
         name: "Login",
         data() {
             return {
-                username: '',
+                email: '',
                 password: '',
                 show_error: false,
                 submitted: false
@@ -43,9 +43,9 @@
             ...mapActions('auth', ['login', 'logout']),
             handleSubmit () {
                 this.submitted = true;
-                const { username, password } = this;
-                if (username && password) {
-                    this.login({ username, password })
+                const { email, password } = this;
+                if (email && password) {
+                    this.login({ email, password })
                 }
             }
         }

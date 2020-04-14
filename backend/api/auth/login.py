@@ -1,6 +1,10 @@
+import json
+
 from rest_framework_simplejwt.serializers import TokenObtainSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenViewBase
+
+from backend.api.models import UserProfile, User
 
 
 class TokenObtainPairSerializer(TokenObtainSerializer):
@@ -13,10 +17,14 @@ class TokenObtainPairSerializer(TokenObtainSerializer):
         data = super().validate(attrs)
 
         refresh = self.get_token(self.user)
+        user = User.objects.get(email=self.user)
+        if user:
+            p = user.profile
+            print('type', type(p))
+            print('user', p.title)
 
         data['refresh'] = str(refresh)
         data['token'] = str(refresh.access_token)
-        data['username'] = str(self.user)
         return data
 
 

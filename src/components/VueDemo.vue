@@ -1,9 +1,4 @@
 <template>
-<!--  <div class="hello">-->
-<!--    <img src='@/assets/logo-vue.png'>-->
-<!--    <div id="character-target-div"></div>-->
-
-<!--  </div>-->
   <div id="character-target-div"></div>
 </template>
 

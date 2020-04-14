@@ -4,8 +4,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
-from backend.api.serializers import MessageSerializer, LessonSerializer, WordSerializer
-from .models import Message, Lesson, Word
+from backend.api.models import User
+from backend.api.serializers.serializers import MessageSerializer, LessonSerializer, WordSerializer
+from backend.api.models.messages import Message
+from backend.api.models.lessons import Lesson
+from backend.api.models.words import Word
+from backend.api.serializers.UserSerializer import UserSerializer
 
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -41,4 +45,8 @@ class WordViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('id', 'chinese', 'pinyin', 'vietnamese')
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 

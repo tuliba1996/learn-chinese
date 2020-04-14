@@ -9,9 +9,9 @@ const state = user
 
 
 const actions = {
-    login({ commit}, {username, password}) {
-        commit('loginRequest', username);
-        authServices.login({username,password})
+    login({ commit}, {email, password}) {
+        commit('loginRequest', email);
+        authServices.login({email,password})
             .then(user => {
                 commit('loginSuccess', user);
                 router.push('/');
