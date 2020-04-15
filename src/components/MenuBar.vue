@@ -16,14 +16,19 @@
             <el-menu-item  index="messages">
                 Messages
             </el-menu-item>
-            <el-menu-item index="login">
+            <el-menu-item index="login" v-if="!status.loggedIn">
                 Login
+            </el-menu-item>
+            <el-menu-item @click="logout" v-if="status.loggedIn">
+                Logout
             </el-menu-item>
         </el-menu>
     </div>
 </template>
 
 <script>
+    import {mapActions, mapState} from "vuex";
+
     export default {
         name: "MenuBar",
         data() {
@@ -32,7 +37,14 @@
                 route: true
             };
         },
-        methods: {}
+        computed: {
+            ...mapState({
+                status: state => state.auth.status
+            })
+        },
+        methods: {
+            ...mapActions('auth', ['login', 'logout']),
+        }
     }
 </script>
 

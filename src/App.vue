@@ -1,19 +1,24 @@
 <template>
     <div>
-        <el-header>
-            <MenuBar/>
-        </el-header>
+        <MenuBar v-if="status.loggedIn"/>
         <router-view/>
     </div>
+
 </template>
 
 <script>
     import MenuBar from './components/MenuBar'
+    import {mapState} from "vuex";
 
     export default {
         name: "App",
         components: {
             MenuBar,
+        },
+        computed:{
+            ...mapState({
+                status: state => state.auth.status
+            })
         },
         watch: {
             $route (to, from){

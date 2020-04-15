@@ -1,29 +1,31 @@
 <template>
-    <div class="form-container">
-        <el-alert
-                v-if="show_error"
-            title="error alert"
-            type="error"
-            :closable="false"
-            show-icon>
-          </el-alert>
-        <el-form size="medium" status-icon ref="ruleForm" label-width="120px" class="demo-ruleForm">
-            <el-form-item  label="Username" prop="pass">
-                <el-input type="username" v-model="email" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="Password" prop="checkPass">
-                <el-input type="password" v-model="password" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" :disabled="status.loggingIn" @click="handleSubmit()">Submit</el-button>
-                <el-button>Reset</el-button>
-            </el-form-item>
-        </el-form>
+    <div class="login">
+        <el-card class="box-card">
+            <el-alert
+                    v-if="show_error"
+                    title="error alert"
+                    type="error"
+                    :closable="false"
+                    show-icon>
+            </el-alert>
+            <el-form size="medium" status-icon ref="ruleForm" label-width="80px" class="form-login">
+                <el-form-item label="Username" prop="pass">
+                    <el-input type="username" v-model="email" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Password" prop="checkPass">
+                    <el-input type="password" v-model="password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="success" :disabled="status.loggingIn" @click="handleSubmit()">Login</el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
     </div>
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex'
+    import {mapState, mapActions} from 'vuex'
+
     export default {
         name: "Login",
         data() {
@@ -41,11 +43,11 @@
         },
         methods: {
             ...mapActions('auth', ['login', 'logout']),
-            handleSubmit () {
+            handleSubmit() {
                 this.submitted = true;
-                const { email, password } = this;
+                const {email, password} = this;
                 if (email && password) {
-                    this.login({ email, password })
+                    this.login({email, password})
                 }
             }
         }
@@ -53,13 +55,17 @@
 </script>
 
 <style scoped>
-    .form-container{
+    .login {
         display: flex;
         justify-content: center;
-        margin-top: 100px;
-
+        margin-top: 150px;
     }
-    .demo-ruleForm{
-        width: 40%;
+
+    .form-login {
+        padding: 50px;
+    }
+
+    .box-card {
+        width: 45%;
     }
 </style>

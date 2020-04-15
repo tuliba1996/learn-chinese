@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import VueDemo from '@/components/VueDemo'
+import HomePage from '@/pages/HomePage'
 import Messages from '@/components/Messages'
 import Lessons from '@/pages/Lessons'
 import PageLesson from '@/pages/PageLesson';
@@ -10,9 +10,9 @@ import Login from '@/pages/auth/Login';
 Vue.use(Router);
 
 const router =  new Router({
-    // mode: 'history',
+    mode: 'history',
     routes: [
-        { path: '/', name: 'home', component: VueDemo},
+        { path: '/', name: 'home', component: HomePage},
         { path: '/messages', name: 'messages', component: Messages},
         { path: '/lessons', name: 'lessons', component: Lessons},
         { path: '/lessons/:id', name: 'wordinlesson', component: PageLesson},
@@ -28,7 +28,6 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/register'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
-
   if (authRequired && !loggedIn) {
     return next('/login');
   }
