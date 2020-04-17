@@ -6,6 +6,7 @@ import Lessons from '@/pages/Lessons'
 import PageLesson from '@/pages/PageLesson';
 import PageWord from '@/pages/PageWord';
 import Login from '@/pages/auth/Login';
+import Register from '@/pages/auth/Register';
 
 Vue.use(Router);
 
@@ -17,7 +18,9 @@ const router =  new Router({
         { path: '/lessons', name: 'lessons', component: Lessons},
         { path: '/lessons/:id', name: 'wordinlesson', component: PageLesson},
         { path: '/word/:id', name: 'word', component: PageWord},
+        { path: '/register', name: 'register', component: Register},
         { path: '/login', name: 'login', component:  Login},
+
         // otherwise redirect to home
         { path: '*', redirect: '/' }
     ]

@@ -7,7 +7,6 @@ const state = user
     : {status: {}, user: null};
 
 
-
 const actions = {
     login({ commit}, {email, password}) {
         commit('loginRequest', email);
@@ -21,11 +20,32 @@ const actions = {
                 // })
                 },
                 error => {
+                    console.log('vao login fail');
                     commit('loginFailure', error);
                     // dispatch('alert/error', error, {root: true});
                 }
             )
     },
+
+    register({commit}, data) {
+        commit('registerRequest');
+        authServices.register(data)
+            .then(
+                () => {
+                    commit('registerSuccess');
+                    // router.push('/login');
+                    // setTimeout(() => {
+                        // display success message after route change completes
+                        // dispatch('alert/success', 'Registration successful', { root: true });
+                    // })
+                },
+                error => {
+                    commit('registerFailure', error);
+                    // dispatch('alert/error', error, { root: true });
+                }
+            );
+    },
+
     logout({ commit }) {
         authServices.logout();
         commit('logout');
@@ -43,13 +63,22 @@ const mutations = {
         state.user = user;
     },
     loginFailure(state) {
-        state.status = {};
+        state.status = { loginFail: true};
         state.user = null;
     },
     logout(state) {
         state.status = {};
         state.user = null;
     },
+    registerRequest(state) {
+        state.status = { registering: true };
+    },
+    registerSuccess(state) {
+        state.status = { registered: true};
+    },
+    registerFailure(state) {
+        state.status = {};
+    }
 };
 
 export default {

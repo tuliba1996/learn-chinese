@@ -1,22 +1,29 @@
 <template>
     <div class="login">
         <el-card class="box-card">
-            <el-alert
-                    v-if="show_error"
-                    title="error alert"
+            <div slot="header" class="clearfix">
+                <span>Login</span>
+            </div>
+            <el-form size="medium" :model="ruleForm" status-icon ref="ruleForm" :rules="rules" label-width="0px" class="form-login">
+                <el-alert
+                    title="Login Fail, Please check email and password"
                     type="error"
                     :closable="false"
-                    show-icon>
-            </el-alert>
-            <el-form size="medium" status-icon ref="ruleForm" label-width="80px" class="form-login">
-                <el-form-item label="Username" prop="pass">
-                    <el-input type="username" v-model="email" autocomplete="off"></el-input>
+                    center
+                    show-icon
+                    v-if="status.loginFail || show_error"
+                    class="login-alert-fail"
+                >
+                  </el-alert>
+                <el-form-item label="Email" prop="email">
+                    <el-input type="email" v-model="ruleForm.email" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="Password" prop="checkPass">
-                    <el-input type="password" v-model="password" autocomplete="off"></el-input>
+                <el-form-item label="Password" prop="password">
+                    <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-button type="success" :disabled="status.loggingIn" @click="handleSubmit()">Login</el-button>
+                <el-form-item class="login-form-btn">
+                    <el-button type="success" :disabled="status.loggingIn" @click="handleSubmit('ruleForm')">Login</el-button>
+                    <el-button type="primary" @click="goToRegister()">Register</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -30,10 +37,20 @@
         name: "Login",
         data() {
             return {
-                email: '',
-                password: '',
+                ruleForm: {
+                    email: '',
+                    password: '',
+                },
                 show_error: false,
-                submitted: false
+                submitted: false,
+                rules: {
+                    email: [
+                        { required: true, message: 'Please input Email', trigger: 'blur', type: 'email' },
+                    ],
+                    password: [
+                        { required: true, message: 'Please input Password', trigger: 'blur' },
+                    ]
+                }
             };
         },
         computed: {
@@ -43,12 +60,19 @@
         },
         methods: {
             ...mapActions('auth', ['login', 'logout']),
-            handleSubmit() {
+            handleSubmit(formName) {
                 this.submitted = true;
-                const {email, password} = this;
-                if (email && password) {
+                const {email, password} = this.ruleForm;
+                this.$refs[formName].validate((valid) => {
+                  if (valid) {
                     this.login({email, password})
-                }
+                  } else {
+                    return false;
+                  }
+                });
+            },
+            goToRegister () {
+                this.$router.push('/register')
             }
         }
     }
@@ -67,5 +91,22 @@
 
     .box-card {
         width: 45%;
+    }
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
+    }
+    .login-form-btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .login-alert-fail {
+        margin-bottom: 10px;
     }
 </style>

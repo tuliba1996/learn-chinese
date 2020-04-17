@@ -9,7 +9,7 @@ from backend.api.serializers.serializers import MessageSerializer, LessonSeriali
 from backend.api.models.messages import Message
 from backend.api.models.lessons import Lesson
 from backend.api.models.words import Word
-from backend.api.serializers.UserSerializer import UserSerializer
+from backend.api.serializers.user import UserSerializer
 
 
 class MessageViewSet(viewsets.ModelViewSet):

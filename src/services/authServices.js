@@ -1,10 +1,7 @@
 import api from '@/services/api'
 
-
-
-
 const login = (payload) =>{
-    return api.post(`token/`, payload)
+    return api.post('token/', payload)
         .then(handleResponse)
         .then(data => {
             // login successful if there's a jwt token in the response
@@ -17,7 +14,12 @@ const login = (payload) =>{
 }
 
 
-function logout() {
+const register = (payload) => {
+    return api.post('user/', payload)
+
+}
+
+const logout = () => {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
 }
@@ -39,5 +41,6 @@ const  handleResponse = (response) => {
 
 export const authServices = {
     login,
-    logout
+    logout,
+    register
 }
