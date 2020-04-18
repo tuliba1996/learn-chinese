@@ -8,7 +8,7 @@ from backend.api.models import User
 from backend.api.serializers.serializers import MessageSerializer, LessonSerializer, WordSerializer
 from backend.api.models.messages import Message
 from backend.api.models.lessons import Lesson
-from backend.api.models.words import Word
+from backend.api.models.words import WordInLesson
 from backend.api.serializers.user import UserSerializer
 
 
@@ -32,7 +32,7 @@ class LessonViewSet(viewsets.ModelViewSet):
     def get_word(self, request, *args, **kwargs):
         lesson_id = kwargs.get('pk', None)
         if lesson_id:
-            list_word = Word.objects.filter(lesson=lesson_id)
+            list_word = WordInLesson.objects.filter(lesson=lesson_id)
             serializer = WordSerializer(list_word, many=True)
         return Response(JSONRenderer().render(serializer.data))
 
@@ -40,7 +40,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 class WordViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
-    queryset = Word.objects.all()
+    queryset = WordInLesson.objects.all()
     serializer_class = WordSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('id', 'chinese', 'pinyin', 'vietnamese')

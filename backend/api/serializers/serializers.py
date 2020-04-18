@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from backend.api.models.messages import Message
-from backend.api.models.words import Word
+from backend.api.models.words import WordInLesson
 from backend.api.models.lessons import Lesson
 
 
@@ -19,7 +19,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class WordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Word
+        model = WordInLesson
         fields = '__all__'
 
 

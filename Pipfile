@@ -12,8 +12,9 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 twilio = "*"
 pillow = "*"
+googletrans = "*"
 [dev-packages]
-
+scrapy
 [requires]
 python_version = "3.6"
 
