@@ -1,14 +1,11 @@
-import PyPDF2
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# from google.cloud import translate_v2 as translate
+# translate_client = translate.Client()
+#
+# a = translate_client.translate('我', target_language='vi')
+# # newrow = a.text
+# print('a', a)
 
 
-pdfFileObj = open('3000-chu-tieng-trung.pdf', 'rb')
 
-pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-
-print(pdfReader.numPages)
-
-pageObj = pdfReader.getPage(0)
-
-print(pageObj.extractText())
-
-pdfFileObj.close()
