@@ -1,7 +1,9 @@
 <template>
     <div>
         <MenuBar v-if="status.loggedIn"/>
-        <router-view/>
+        <div class="app-container">
+            <router-view/>
+        </div>
     </div>
 
 </template>
@@ -29,4 +31,12 @@
 </script>
 <style lang="styl" scoped>
     @import "static/main.styl";
+
+    .app-container {
+        display: flex;
+        justify-content: center;
+        /*width: 60%;*/
+        /*box-shadow: #cccccc;*/
+        /*border: 1px solid black;*/
+    }
 </style>

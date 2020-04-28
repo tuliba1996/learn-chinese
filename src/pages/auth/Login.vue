@@ -19,7 +19,7 @@
                     <el-input type="email" v-model="ruleForm.email" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="Password" prop="password">
-                    <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                    <el-input @change="handleSubmit('ruleForm')" type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item class="login-form-btn">
                     <el-button type="success" :disabled="status.loggingIn" @click="handleSubmit('ruleForm')">Login</el-button>
@@ -82,7 +82,8 @@
     .login {
         display: flex;
         justify-content: center;
-        margin-top: 150px;
+        margin-top: 100px;
+        width: 40%;
     }
 
     .form-login {
@@ -90,7 +91,7 @@
     }
 
     .box-card {
-        width: 45%;
+        width: 100%;
     }
     .clearfix:before,
     .clearfix:after {

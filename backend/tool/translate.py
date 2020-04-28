@@ -1,13 +1,7 @@
-from time import sleep
-
 import psycopg2
 
 from google.cloud import translate_v2 as translate
 translator = translate.Client()
-#
-# a = translator.translate('我', dest='vi', src='zh-cn')
-# print('sdf', a.text)
-# print('a', a.extra_data)
 
 try:
     connection = psycopg2.connect(user="postgres",

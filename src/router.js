@@ -7,6 +7,7 @@ import PageLesson from '@/pages/PageLesson';
 import PageWord from '@/pages/PageWord';
 import Login from '@/pages/auth/Login';
 import Register from '@/pages/auth/Register';
+import SearchWord from "./pages/SearchWord";
 
 Vue.use(Router);
 
@@ -19,6 +20,7 @@ const router =  new Router({
         { path: '/lessons/:id', name: 'wordinlesson', component: PageLesson},
         { path: '/word/:id', name: 'word', component: PageWord},
         { path: '/register', name: 'register', component: Register},
+        { path: '/search', name: 'search', component: SearchWord},
         { path: '/login', name: 'login', component:  Login},
 
         // otherwise redirect to home

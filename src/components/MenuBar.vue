@@ -16,6 +16,9 @@
             <el-menu-item  index="messages">
                 Messages
             </el-menu-item>
+            <el-menu-item  index="search">
+                Search
+            </el-menu-item>
             <el-menu-item index="login" v-if="!status.loggedIn">
                 Login
             </el-menu-item>

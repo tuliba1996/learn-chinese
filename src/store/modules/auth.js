@@ -1,5 +1,7 @@
 import {authServices} from '../../services/authServices'
 import router from '@/router'
+import api from "../../services/api";
+import authHeader from "../../utils/authHeader";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const state = user
@@ -13,6 +15,7 @@ const actions = {
         authServices.login({email,password})
             .then(user => {
                 commit('loginSuccess', user);
+
                 router.push('/');
                 // setTimeout(() => {
                 //     // display success message after route change completes
