@@ -52,7 +52,6 @@ rsa==4.0
 Scrapy==2.0.1
 service-identity==18.1.0
 six==1.13.0
-setuptools==1.0
 sqlparse==0.3.0
 twilio==6.34.0
 Twisted==20.3.0
