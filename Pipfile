@@ -70,4 +70,4 @@ Twisted = "==20.3.0"
 "zope.interface" = "==5.1.0"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7.3"
