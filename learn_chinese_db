@@ -1,0 +1,4459 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: api_book; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_book (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.api_book OWNER TO postgres;
+
+--
+-- Name: api_book_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_book_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_book_id_seq OWNER TO postgres;
+
+--
+-- Name: api_book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_book_id_seq OWNED BY public.api_book.id;
+
+
+--
+-- Name: api_commonchinese; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_commonchinese (
+    id integer NOT NULL,
+    chinese character varying(255) NOT NULL,
+    pinyin character varying(255) NOT NULL,
+    vietnamese character varying(255)
+);
+
+
+ALTER TABLE public.api_commonchinese OWNER TO postgres;
+
+--
+-- Name: api_commonchinese_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_commonchinese_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_commonchinese_id_seq OWNER TO postgres;
+
+--
+-- Name: api_commonchinese_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_commonchinese_id_seq OWNED BY public.api_commonchinese.id;
+
+
+--
+-- Name: api_lesson; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_lesson (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    book_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_lesson OWNER TO postgres;
+
+--
+-- Name: api_lesson_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_lesson_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_lesson_id_seq OWNER TO postgres;
+
+--
+-- Name: api_lesson_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_lesson_id_seq OWNED BY public.api_lesson.id;
+
+
+--
+-- Name: api_message; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_message (
+    id integer NOT NULL,
+    subject character varying(200) NOT NULL,
+    body text NOT NULL
+);
+
+
+ALTER TABLE public.api_message OWNER TO postgres;
+
+--
+-- Name: api_message_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_message_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_message_id_seq OWNER TO postgres;
+
+--
+-- Name: api_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_message_id_seq OWNED BY public.api_message.id;
+
+
+--
+-- Name: api_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL,
+    username character varying(255),
+    email character varying(254) NOT NULL
+);
+
+
+ALTER TABLE public.api_user OWNER TO postgres;
+
+--
+-- Name: api_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_user_groups OWNER TO postgres;
+
+--
+-- Name: api_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: api_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_user_groups_id_seq OWNED BY public.api_user_groups.id;
+
+
+--
+-- Name: api_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_user_id_seq OWNER TO postgres;
+
+--
+-- Name: api_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_user_id_seq OWNED BY public.api_user.id;
+
+
+--
+-- Name: api_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: api_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: api_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_user_user_permissions_id_seq OWNED BY public.api_user_user_permissions.id;
+
+
+--
+-- Name: api_userprofile; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_userprofile (
+    id integer NOT NULL,
+    title character varying(5) NOT NULL,
+    address character varying(255) NOT NULL,
+    avatar character varying(100) NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_userprofile OWNER TO postgres;
+
+--
+-- Name: api_userprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_userprofile_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_userprofile_id_seq OWNER TO postgres;
+
+--
+-- Name: api_userprofile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_userprofile_id_seq OWNED BY public.api_userprofile.id;
+
+
+--
+-- Name: api_wordinlesson; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.api_wordinlesson (
+    id integer NOT NULL,
+    chinese character varying(255) NOT NULL,
+    pinyin character varying(255) NOT NULL,
+    vietnamese character varying(255) NOT NULL,
+    lesson_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_wordinlesson OWNER TO postgres;
+
+--
+-- Name: api_word_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.api_word_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_word_id_seq OWNER TO postgres;
+
+--
+-- Name: api_word_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.api_word_id_seq OWNED BY public.api_wordinlesson.id;
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: authtoken_token; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.authtoken_token (
+    key character varying(40) NOT NULL,
+    created timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.authtoken_token OWNER TO postgres;
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: api_book id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_book ALTER COLUMN id SET DEFAULT nextval('public.api_book_id_seq'::regclass);
+
+
+--
+-- Name: api_commonchinese id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_commonchinese ALTER COLUMN id SET DEFAULT nextval('public.api_commonchinese_id_seq'::regclass);
+
+
+--
+-- Name: api_lesson id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_lesson ALTER COLUMN id SET DEFAULT nextval('public.api_lesson_id_seq'::regclass);
+
+
+--
+-- Name: api_message id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_message ALTER COLUMN id SET DEFAULT nextval('public.api_message_id_seq'::regclass);
+
+
+--
+-- Name: api_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user ALTER COLUMN id SET DEFAULT nextval('public.api_user_id_seq'::regclass);
+
+
+--
+-- Name: api_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_groups ALTER COLUMN id SET DEFAULT nextval('public.api_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: api_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.api_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: api_userprofile id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_userprofile ALTER COLUMN id SET DEFAULT nextval('public.api_userprofile_id_seq'::regclass);
+
+
+--
+-- Name: api_wordinlesson id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_wordinlesson ALTER COLUMN id SET DEFAULT nextval('public.api_word_id_seq'::regclass);
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: api_book; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_book (id, name, description) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_commonchinese; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_commonchinese (id, chinese, pinyin, vietnamese) FROM stdin;
+1	的	de	Của
+2	一	yī	Một
+3	是	shì	Vâng
+4	不	bù	Không
+5	了	le	Tắt
+6	在	zài	Trong
+7	人	rén	Người
+8	有	yǒu	Có
+9	我	wǒ	Tôi
+10	他	tā	Anh ấy
+11	这	zhè	Cái này
+12	个	gè	Pc
+13	们	men	Chúng tôi
+14	中	zhōng	Trong
+15	来	lái	Đến đây
+16	上	shàng	Lên
+17	大	dà	Lớn
+18	为	wèi	Dành cho
+19	和	hé	Và
+20	国	guó	Đất nước
+21	地	dì	Mặt đất
+22	到	dào	Để
+23	以	yǐ	Để
+24	说	shuō	Nói
+25	时	shí	Giờ
+26	要	yào	Muốn
+27	就	jiù	Chỉ cần
+28	出	chū	Ra ngoài
+29	会	huì	Sẽ
+30	可	kě	Có thể
+31	也	yě	Ngoài ra
+32	你	nǐ	Bạn
+33	对	duì	Vâng
+34	生	shēng	Sức khỏe
+35	能	néng	Có thể
+36	而	ér	Trong khi
+37	子	zǐ	Đứa trẻ
+38	那	nà	Đó
+39	得	dé	Nhận
+40	于	yú	Bật
+41	着	zháo	Viết
+42	下	xià	Xuống
+43	自	zì	Kể từ khi
+44	之	zhī	Của
+45	年	nián	Năm
+46	过	guò	Quá khứ
+47	发	fā	Gửi
+48	后	hòu	Sau
+49	作	zuò	Làm
+50	里	lǐ	Trong
+51	用	yòng	Sử dụng
+52	道	dào	Đạo
+53	行	xíng	Được rồi
+54	所	suǒ	Nơi
+55	然	rán	Chạy
+56	家	jiā	Trang chủ
+57	种	zhǒng	Loài
+58	事	shì	Điều
+59	成	chéng	Vào
+60	方	fāng	Người
+61	多	duō	Nhiều
+62	经	jīng	Bởi
+63	么	yāo	Cái gì
+64	去	qù	Đi
+65	法	fǎ	Luật
+66	学	xué	Học
+67	如	rú	Như
+68	都	dū	Tất cả
+69	同	tóng	Giống nhau
+70	现	xiàn	Bây giờ
+71	当	dāng	Khi nào
+72	没	méi	Không
+73	动	dòng	Di chuyển
+74	面	miàn	Mì
+75	起	qǐ	Lên
+76	看	kàn	Nhìn kìa
+77	定	dìng	Đặt
+78	天	tiān	Ngày
+79	分	fēn	Cent
+80	还	huán	Ngoài ra
+81	进	jìn	Nhập
+82	好	hǎo	Tốt
+83	小	xiǎo	Nhỏ
+84	部	bù	Sở
+85	其	qí	Nó
+86	些	xiē	Một số
+87	主	zhǔ	Thầy
+88	样	yáng	Tử tế
+89	理	lǐ	Quản lý
+90	心	xīn	Trái tim
+91	她	tā	Cô ấy
+92	本	běn	Cái này
+93	前	qián	Trước
+94	开	kāi	Mở
+95	但	dàn	Nhưng
+96	因	yīn	Bởi vì
+97	只	zhǐ	Chỉ
+98	从	cóng	Từ
+99	想	xiǎng	Suy nghĩ
+100	实	shí	Thực
+101	日	rì	Ngày
+102	军	jūn	Quân đội
+103	者	zhě	Người
+104	意	yì	Ý định
+105	无	wú	Không có
+106	力	lì	Lực lượng
+107	它	tā	Nó
+108	与	yǔ	Với
+109	长	cháng	Dài
+110	把	bǎ	Đặt
+111	机	jī	Máy
+112	十	shí	Mười
+113	民	mín	Người
+114	第	dì	Đầu tiên
+115	公	gōng	Công cộng
+116	此	cǐ	Cái này
+117	已	yǐ	Đã
+118	工	gōng	Làm việc
+119	使	shǐ	Làm
+120	情	qíng	Tình cảm
+121	明	míng	Minh
+122	性	xìng	Giới tính
+123	知	zhī	Biết
+124	全	quán	Tất cả
+125	三	sān	Ba
+126	又	yòu	Một lần nữa
+127	关	guān	Tắt
+128	点	diǎn	Điểm
+129	正	zhèng	Tích cực
+130	业	yè	Công nghiệp
+131	外	wài	Bên ngoài
+132	将	jiāng	Sẽ
+133	两	liǎng	Hai
+134	高	gāo	Cao
+135	间	jiān	Giữa
+136	由	yóu	Bởi
+137	问	wèn	Hỏi
+138	很	hěn	Rất
+139	最	zuì	Hầu hết
+140	重	zhòng	Nặng
+141	并	bìng	Và
+142	物	wù	Điều
+143	手	shǒu	Tay
+144	应	yìng	Nên
+145	战	zhàn	Trận chiến
+146	向	xiàng	Để
+147	头	tóu	Trưởng ban
+148	文	wén	Văn bản
+149	体	tǐ	Cơ thể
+150	政	zhèng	Chính trị
+151	美	měi	Người đẹp
+152	相	xiāng	Giai đoạn
+153	见	jiàn	Xem
+154	被	bèi	Được
+155	利	lì	Lợi ích
+156	什	shí	Cái gì
+157	二	èr	Hai
+158	等	děng	Đợi đã
+159	产	chǎn	Sản xuất
+160	或	huò	Hoặc
+161	新	xīn	Mới
+162	己	jǐ	Tự
+163	制	zhì	Kiểm soát
+164	身	shēn	Cơ thể
+165	果	guǒ	Trái cây
+166	加	jiā	Thêm
+167	西	xī	Tây
+168	斯	sī	Sĩ
+169	月	yuè	Tháng
+170	话	huà	Từ ngữ
+171	合	hé	Phù hợp
+172	回	huí	Thời đại
+173	特	tè	Đặc biệt
+174	代	dài	Thế hệ
+175	内	nèi	Trong
+176	信	xìn	Thư
+177	表	biǎo	Bảng
+178	化	huà	Thay đổi
+179	老	lǎo	Cũ
+180	给	gěi	Cho
+181	世	shì	Thế giới
+182	位	wèi	Thứ hạng
+183	次	cì	Thời đại
+184	度	dù	Bằng cấp
+185	门	mén	Cửa
+186	任	rèn	Ren
+187	常	cháng	Thường
+188	先	xiān	Đầu tiên
+189	海	hǎi	Biển
+190	通	tōng	Vượt qua
+191	教	jiào	Dạy
+192	儿	ér	Trẻ em
+193	原	yuán	Bản gốc
+194	东	dōng	Đông
+195	声	shēng	Âm thanh
+196	提	tí	Đề cập
+197	立	lì	Đứng
+198	及	jí	Và
+199	比	bǐ	Hơn
+200	员	yuán	Thành viên
+201	解	jiě	Giải pháp
+202	水	shuǐ	Nước
+203	名	míng	Tên
+204	真	zhēn	Đúng
+205	论	lùn	Bật
+206	处	chù	Nơi
+207	走	zǒu	Đi bộ
+208	义	yì	Chính nghĩa
+209	各	gè	Mỗi
+210	入	rù	Nhập
+211	几	jī	Một vài
+212	口	kǒu	Miệng
+213	认	rèn	Nhận ra
+214	条	tiáo	Điều
+215	平	píng	Căn hộ
+216	系	xì	Sở
+217	气	qì	Giận
+218	题	tí	Tiêu đề
+219	活	huó	Sống
+220	尔	ěr	Ơ
+221	更	gèng	Thêm
+222	别	bié	Đừng
+223	打	dǎ	Lượt truy cập
+224	女	nǚ	Nữ
+225	变	biàn	Thay đổi
+226	四	sì	Bốn
+227	神	shén	Chúa
+228	总	zǒng	Tổng cộng
+229	何	hé	Cái gì
+230	电	diàn	Điện
+231	数	shù	Số
+232	安	ān	An
+233	少	shǎo	Ít hơn
+234	报	bào	Báo cáo
+235	才	cái	Chỉ
+236	结	jié	Hôn
+237	反	fǎn	Chống
+238	受	shòu	Chấp nhận
+239	目	mù	Mắt
+240	太	tài	Quá
+241	量	liàng	Số tiền
+242	再	zài	Một lần nữa
+243	感	gǎn	Ý thức
+244	建	jiàn	Xây dựng
+245	务	wù	Kinh doanh
+246	做	zuò	Làm
+247	接	jiē	Đón
+248	必	bì	Phải
+249	场	cháng	Lĩnh vực
+250	件	jiàn	Vỏ
+251	计	jì	Máy đo
+252	管	guǎn	Ống
+253	期	qī	Thời gian
+254	市	shì	Thành phố
+255	直	zhí	Thẳng
+256	德	dé	Không
+257	资	zī	Thủ đô
+258	命	mìng	Số phận
+259	山	shān	Núi
+260	金	jīn	Vàng
+261	指	zhǐ	Ngón tay
+262	克	kè	G
+263	许	xǔ	Xu
+264	统	tǒng	Thống nhất
+265	区	qū	Quận
+266	保	bǎo	Bảo vệ
+267	至	zhì	Để
+268	队	duì	Đội
+269	形	xíng	Hình dạng
+270	社	shè	Xã hội
+271	便	biàn	Phân
+272	空	kōng	Trống rỗng
+273	决	jué	Quyết định
+274	治	zhì	Chính phủ
+275	展	zhǎn	Hiển thị
+276	马	mǎ	Ngựa
+277	科	kē	Mục
+278	司	sī	Bộ phận
+279	五	wǔ	Năm
+280	基	jī	Cơ sở
+281	眼	yǎn	Mắt
+282	书	shū	Sách
+283	非	fēi	Không
+284	则	zé	Sau đó
+285	听	tīng	Nghe
+286	白	bái	Trắng
+287	却	què	Tuy nhiên
+288	界	jiè	Giới hạn
+289	达	dá	Đạt
+290	光	guāng	Ánh sáng
+291	放	fàng	Đặt
+292	强	qiáng	Mạnh mẽ
+293	即	jí	Đó là
+294	像	xiàng	Thích
+295	难	nán	Khó khăn
+296	且	qiě	Và
+297	权	quán	Phải
+298	思	sī	Suy nghĩ
+299	王	wáng	Vua
+300	象	xiàng	Voi
+301	完	wán	Kết thúc
+302	设	shè	Đặt
+303	式	shì	Loại
+304	色	sè	Màu
+305	路	lù	Đường
+306	记	jì	Nhớ
+307	南	nán	Nam
+308	品	pǐn	Hàng hóa
+309	住	zhù	Sống
+310	告	gào	Kiện
+311	类	lèi	Lớp học
+312	求	qiú	Bắt đầu
+313	据	jù	Theo
+314	程	chéng	Thành
+315	北	běi	Bắc
+316	边	biān	Cạnh
+317	死	sǐ	Chết đi
+318	张	zhāng	Trương
+319	该	gāi	điều đó
+320	交	jiāo	Tay trong
+321	规	guī	Quy định
+322	万	wàn	Mười ngàn
+323	取	qǔ	Lấy
+324	拉	lā	Kéo
+325	格	gé	Lưới
+326	望	wàng	Hy vọng
+327	觉	jué	Cảm thấy
+328	术	zhú	Kỹ thuật
+329	领	lǐng	Cổ áo
+330	共	gòng	Tổng cộng
+331	确	què	Thật vậy
+332	传	chuán	Vượt qua
+333	师	shī	Bộ phận
+334	观	guān	Xem
+335	清	qīng	Xóa
+336	今	jīn	Bây giờ
+337	切	qiē	Cắt
+338	院	yuàn	Sân
+339	让	ràng	Để
+340	识	shì	Biết
+341	候	hòu	Đợi đã
+342	带	dài	Ban nhạc
+343	导	dǎo	Hướng dẫn
+344	争	zhēng	Đánh nhau
+345	运	yùn	May mắn
+346	笑	xiào	Lol
+347	飞	fēi	Bay
+348	风	fēng	Gió
+349	步	bù	Bước
+350	改	gǎi	Thay đổi
+351	收	shōu	Đóng
+352	根	gēn	Rễ
+353	干	gān	Khô
+354	造	zào	Làm
+355	言	yán	Nói
+356	联	lián	Hoa
+357	持	chí	Giữ
+358	组	zǔ	Nhóm
+359	每	měi	Mỗi
+360	济	jì	Kinh tế
+361	车	chē	Xe hơi
+362	亲	qīn	Kính gửi
+363	极	jí	Vô cùng
+364	林	lín	Lâm
+365	服	fú	Lấy
+366	快	kuài	Nhanh
+367	办	bàn	Làm
+368	议	yì	Thảo luận
+369	往	wǎng	Hướng tới
+370	元	yuán	Nguyên
+371	英	yīng	Tiếng anh
+372	士	shì	Shi
+373	证	zhèng	Chứng minh
+374	近	jìn	Gần
+375	失	shī	Mất
+376	转	zhuǎn	Biến
+377	夫	fū	Chồng
+378	令	lìng	Làm
+379	准	zhǔn	Quasi
+380	布	bù	Vải
+381	始	shǐ	Bắt đầu
+382	怎	zěn	Làm thế nào
+383	呢	ní	Thế còn
+384	存	cún	Lưu lại
+385	未	wèi	Chưa
+386	远	yuǎn	Xa
+387	叫	jiào	Gọi
+388	台	tái	Đài Loan
+389	单	dān	Độc thân
+390	影	yǐng	Bóng tối
+391	具	jù	Với
+392	罗	luō	Lạc
+393	字	zì	Lời
+394	爱	ài	Yêu
+395	击	jí	Đình công
+396	流	liú	Dòng chảy
+397	备	bèi	Chuẩn bị
+398	兵	bīng	Cầm đồ
+399	连	lián	Thậm chí
+400	调	diào	Giai điệu
+401	深	shēn	Sâu
+402	商	shāng	Đơn vị
+403	算	suàn	Đếm
+404	质	zhí	Chất lượng
+405	团	tuán	Trung đoàn
+406	集	jí	Bộ sưu tập
+407	百	bǎi	Hàng trăm
+408	需	xū	Cần
+409	价	jià	Giá
+410	花	huā	Hoa
+411	党	dǎng	Tiệc tùng
+412	华	huá	Hứa
+413	城	chéng	Thành phố
+414	石	shí	Đá
+415	级	jí	Cấp độ
+416	整	zhěng	Toàn bộ
+417	府	fǔ	Nhà
+418	离	lí	Rời đi
+419	况	kuàng	Tình trạng
+420	亚	yà	Châu á
+421	请	qǐng	Làm ơn
+422	技	jì	Kỹ năng
+423	际	jì	Nhân dịp
+424	约	yuē	Giới thiệu
+425	示	shì	Hiển thị
+426	复	fù	Phức tạp
+427	病	bìng	Bệnh tật
+428	息	xī	Lãi suất
+429	究	jiū	Điều tra
+430	线	xiàn	Đường dây
+431	似	sì	Tương tự
+432	官	guān	Cán bộ
+433	火	huǒ	Lửa
+434	断	duàn	Phá vỡ
+435	精	jīng	Khỏe
+436	满	mǎn	Đầy đủ
+437	支	zhī	Hỗ trợ
+438	视	shì	Như
+439	消	xiāo	Xua tan
+440	越	yuè	Nhạc chuông
+441	器	qì	Thiết bị
+442	容	róng	Nội dung
+443	照	zhào	Hình ảnh
+444	须	xū	Râu
+445	九	jiǔ	Chín
+446	增	zēng	Tăng
+447	研	yán	Nghiền
+448	写	xiě	Viết
+449	称	chēng	Cân
+450	企	qǐ	Doanh nghiệp
+451	八	bā	Tám
+452	功	gōng	Bằng khen
+453	吗	ma	Bạn
+454	包	bāo	Gói
+455	片	piàn	Mảnh
+456	史	shǐ	Lịch sử
+457	委	wěi	Hoa hồng
+458	乎	hū	Hầu như
+459	查	chá	Kiểm tra
+460	轻	qīng	Ánh sáng
+461	易	yì	Dễ dàng
+462	早	zǎo	Sớm
+463	曾	céng	Một lần
+464	除	chú	Ngoại trừ
+465	农	nóng	Nông nghiệp
+466	找	zhǎo	Tìm
+467	装	zhuāng	Trang phục
+468	广	yǎn	Rộng
+469	显	xiǎn	Rõ ràng
+470	吧	ba	Phải
+471	阿	ā	Một
+472	李	lǐ	Lee
+473	标	biāo	Đánh dấu
+474	谈	tán	Nói chuyện
+475	吃	chī	Ăn
+476	图	tú	Hình
+477	念	niàn	Đọc
+478	六	liù	Sáu
+479	引	yǐn	Đã trích dẫn
+480	历	lì	Lịch
+481	首	shǒu	Đầu tiên
+482	医	yì	Y khoa
+483	局	jú	Cục
+484	突	tū	Bùng nổ
+485	专	zhuān	Đặc biệt
+486	费	fèi	Lệ phí
+487	号	hào	Số
+488	尽	jǐn	Xả
+489	另	lìng	Khác
+490	周	zhōu	Tuần
+491	较	jiào	So sánh
+492	注	zhù	Lưu ý
+493	语	yǔ	Ngôn ngữ
+494	仅	jǐn	Chỉ
+495	考	kǎo	Kiểm tra
+496	落	luò	Mùa thu
+497	青	qīng	Màu xanh
+498	随	suí	Theo dõi
+499	选	xuǎn	Chọn
+500	列	liè	Cột
+501	武	wǔ	Ngô
+502	红	hóng	Màu đỏ
+503	响	xiǎng	Âm thanh
+504	虽	suī	Mặc dù
+505	推	tuī	Đẩy
+506	势	shì	Tiềm năng
+507	参	cān	Nhân sâm
+508	希	xī	Hy vọng
+509	古	gǔ	Cổ đại
+510	众	zhòng	Đám đông
+511	构	gōu	Xây dựng
+512	房	fáng	Phòng
+513	半	bàn	Một nửa
+514	节	jié	Lễ hội
+515	土	tǔ	Thứ bảy
+516	投	tóu	Diễn viên
+517	某	mǒu	Chắc chắn
+518	案	àn	Vỏ
+519	黑	hēi	Đen
+520	维	wéi	Kích thước
+521	革	gé	Da
+522	划	huá	Vẽ
+523	敌	dí	Kẻ thù
+524	致	zhì	Để
+525	陈	chén	Chen
+526	律	lǜ	Luật
+527	足	zú	Chân
+528	态	tài	Nhà nước
+529	护	hù	Bảo vệ
+530	七	qī	Bảy
+531	兴	xīng	Xing
+532	派	pài	Bánh
+533	孩	hái	Em yêu
+534	验	yàn	Kiểm tra
+535	责	zé	Đổ lỗi
+536	营	yíng	Trại
+537	星	xīng	Ngôi sao
+538	够	gòu	Đủ rồi
+539	章	zhāng	Chương
+540	音	yīn	Âm thanh
+541	跟	gēn	Theo dõi
+542	志	zhì	Tử
+543	底	dǐ	Dưới cùng
+544	站	zhàn	Đứng
+545	严	yán	Nghiêm
+546	巴	bā	Ba
+547	例	lì	Một ví dụ
+548	防	fáng	Chống
+549	族	zú	Bộ lạc
+550	供	gōng	Cung
+551	效	xiào	Hiệu quả
+552	续	xù	Tiếp tục
+553	施	shī	Cho
+554	留	liú	Ở lại
+555	讲	jiǎng	Nói
+556	型	xíng	Loại
+557	料	liào	Lệ phí
+558	终	zhōng	Cuối cùng
+559	答	dá	Trả lời
+560	紧	jǐn	Chặt
+561	黄	huáng	Vàng
+562	绝	jué	Tuyệt đối
+563	奇	qí	Lạ
+564	察	chá	Kiểm tra
+565	母	mǔ	Mẹ
+566	京	jīng	Bắc Kinh
+567	段	duàn	Phân khúc
+568	依	yī	Bởi
+569	批	pī	Phê duyệt
+570	群	qún	Nhóm
+571	项	xiàng	Mục
+572	故	gù	Do đó
+573	按	àn	Nhấn
+574	河	hé	Dòng sông
+575	米	mǐ	Gạo
+576	围	wéi	Vòm
+577	江	jiāng	Giang
+578	织	zhī	Dệt
+579	害	hài	Tác hại
+580	斗	dǒu	Đánh nhau
+581	双	shuāng	Đôi
+582	境	jìng	Môi trường
+583	客	kè	Khách
+584	纪	jì	Ji
+585	采	cǎi	Chọn
+586	举	jǔ	Nâng
+587	杀	shā	Giết
+588	攻	gōng	Tấn công
+589	父	fù	Cha
+590	苏	sū	Su
+591	密	mì	Bí mật
+592	低	dī	Thấp
+593	朝	zhāo	Buổi sáng
+594	友	yǒu	Bạn bè
+595	诉	sù	Kiện
+596	止	zhǐ	Dừng lại
+597	细	xì	Khỏe
+598	愿	yuàn	Chúc
+599	千	qiān	Ngàn
+600	值	zhí	Giá trị
+601	仍	réng	Vẫn
+602	男	nán	Nam
+603	钱	qián	Tiền
+604	破	pò	Phá vỡ
+605	网	wǎng	Mạng
+606	热	rè	Nóng
+607	助	zhù	Giúp
+608	倒	dǎo	Đổ
+609	育	yù	Giáo dục
+610	属	shǔ	Chi
+611	坐	zuò	Ngồi
+612	帝	dì	Hoàng đế
+613	限	xiàn	Giới hạn
+614	船	chuán	Thuyền
+615	脸	liǎn	Khuôn mặt
+616	职	zhí	Công việc
+617	速	sù	Tốc độ
+618	刻	kè	Khắc
+619	乐	lè	Lê
+620	否	fǒu	Không
+621	刚	gāng	Chỉ cần
+622	威	wēi	Uy tín
+623	毛	máo	Mao
+624	状	zhuàng	Tình trạng
+625	率	lǜ	Tỷ lệ
+626	甚	shén	Rất
+627	独	dú	Một mình
+628	球	qiú	Bóng
+629	般	bān	Vậy
+630	普	pǔ	Pu
+631	怕	pà	Sợ
+632	弹	dàn	Bom
+633	校	xiào	Trường học
+634	苦	kǔ	Đắng
+635	创	chuàng	Tạo
+636	假	jiǎ	Rời đi
+637	久	jiǔ	Dài
+638	错	cuò	Sai
+639	承	chéng	Gấu
+640	印	yìn	Con dấu
+641	晚	wǎn	Muộn
+642	兰	lán	Màu xanh
+643	试	shì	Hãy thử
+644	股	gǔ	Cổ phiếu
+645	拿	ná	Lấy
+646	脑	nǎo	Não
+647	预	yù	Trước
+648	谁	shuí	Ai
+649	益	yì	Lợi ích
+650	阳	yáng	Dương
+651	若	ruò	Nếu
+652	哪	nǎ	Mà
+653	微	wēi	Vi mô
+654	尼	ní	Ny
+655	继	jì	Theo dõi
+656	送	sòng	Gửi
+657	急	jí	Lo lắng
+658	血	xiě	Máu
+659	惊	liáng	Giật mình
+660	伤	shāng	Làm tổn thương
+661	素	sù	Thủ tướng
+662	药	yào	Y học
+663	适	shì	Thích hợp
+664	波	bō	Sóng
+665	夜	yè	Đêm
+666	省	shěng	Lưu lại
+667	初	chū	Đầu tiên
+668	喜	xǐ	Hạnh phúc
+669	卫	wèi	Bảo vệ
+670	源	yuán	Nguồn
+671	食	shí	Ăn
+672	险	xiǎn	Rủi ro
+673	待	dài	Đợi đã
+674	述	shù	Kể lại
+675	陆	lù	Lu
+676	习	xí	Học
+677	置	zhì	Đặt
+678	居	jū	Ở
+679	劳	láo	Lao động
+680	财	cái	Giàu có
+681	环	huán	Nhẫn
+682	排	pái	Hàng
+683	福	fú	Phước lành
+684	纳	nà	Na
+685	欢	huān	Huân
+686	雷	léi	Ray
+687	警	jǐng	Cảnh sát
+688	获	huò	Giành chiến thắng
+689	模	mó	Chế độ
+690	充	chōng	Sạc
+691	负	fù	Tiêu cực
+692	云	yún	Mây
+693	停	tíng	Dừng lại
+694	木	mù	Gỗ
+695	游	yóu	Bơi
+696	龙	lóng	Rồng
+697	树	shù	Cây
+698	疑	yí	Nghi ngờ
+699	层	céng	Lớp
+700	冷	lěng	Lạnh
+701	洲	zhōu	Lục địa
+702	冲	chōng	Vội vàng
+703	射	shè	Bắn
+704	略	lüè	Hơi
+705	范	fàn	Quạt
+706	竟	jìng	Thật ra
+707	句	jù	Câu
+708	室	shì	Phòng
+709	异	yì	Khác nhau
+710	激	jī	Cường độ cao
+711	汉	yì	Hàn
+712	村	cūn	Làng
+713	哈	hā	Hà
+714	策	cè	Chính sách
+715	演	yǎn	Đạo luật
+716	简	jiǎn	Jane
+717	卡	qiǎ	Thẻ
+718	罪	zuì	Tội lỗi
+719	判	pàn	Thẩm phán
+720	担	dàn	Gấu
+721	州	zhōu	Nhà nước
+722	静	jìng	Yên tĩnh
+723	退	tuì	Khóa tu
+724	既	jì	Cả hai
+725	衣	yī	Quần áo
+726	您	nín	Bạn
+727	宗	zōng	Zong
+728	积	jī	Sản phẩm
+729	余	yú	Tôi
+730	痛	tòng	Đau
+731	检	jiǎn	Kiểm tra
+732	差	chà	Nghèo
+733	富	fù	Giàu
+734	灵	líng	Thần
+735	协	xié	Hội
+736	角	jiǎo	Góc
+737	占	zhān	Tài khoản cho
+738	配	pèi	Trận đấu
+739	征	zhēng	Ký tên
+740	修	xiū	Sửa chữa
+741	皮	pí	Ẩn
+742	挥	huī	Sóng
+743	胜	shèng	Giành chiến thắng
+744	降	jiàng	Thả
+745	阶	jiē	Đặt hàng
+746	审	shěn	Đánh giá
+747	沉	chén	Thần
+748	坚	jiān	Công ty
+749	善	shàn	Tốt
+750	妈	mā	Mẹ
+751	刘	liú	Lưu
+752	读	dú	Đọc
+753	啊	a	À
+754	超	chāo	Siêu
+755	免	miǎn	Miễn
+756	压	yā	Nhấn
+757	银	yín	Bạc
+758	买	mǎi	Mua
+759	皇	huáng	Hoàng đế
+760	养	yǎng	Tăng
+761	伊	yī	Yi
+762	怀	huái	Mang thai
+763	执	zhí	Giữ
+764	副	fù	Phó
+765	乱	luàn	Hỗn loạn
+766	抗	kàng	Chống lại
+767	犯	fàn	Cam kết
+768	追	zhuī	Đuổi theo
+769	帮	bāng	Giúp
+770	宣	xuān	Khai báo
+771	佛	fó	Phật
+772	岁	suì	Năm tuổi
+773	航	háng	Hằng
+774	优	yōu	Tuyệt vời
+775	怪	guài	Đổ lỗi
+776	香	xiāng	Hương nhang
+777	著	zhù	Viết
+778	田	tián	Thiên
+779	铁	tiě	Sắt
+780	控	kòng	Kiểm soát
+781	税	shuì	Thuế
+782	左	zuǒ	Còn lại
+783	右	yòu	Phải
+784	份	fèn	Phần
+785	穿	chuān	Mặc
+786	艺	yì	Nghệ thuật
+787	背	bèi	Quay lại
+788	阵	zhèn	Hình thành
+789	草	cǎo	Cỏ
+790	脚	jiǎo	Bàn chân
+791	概	gài	Tổng hợp
+792	恶	è	Ác
+793	块	kuài	Chặn
+794	顿	dùn	Dun
+795	敢	gǎn	Dám
+796	守	shǒu	Giữ
+797	酒	jiǔ	Rượu
+798	岛	dǎo	Đảo
+799	托	tuō	Giữ
+800	央	yāng	Miền trung
+801	户	hù	Hộ gia đình
+802	烈	liè	Mạnh mẽ
+803	洋	yáng	Ngoại
+804	哥	gē	Anh trai
+805	索	suǒ	Vậy
+806	胡	hú	Hồ
+807	款	kuǎn	Mục
+808	靠	kào	Dựa vào
+809	评	píng	Nhận xét
+810	版	bǎn	Phiên bản
+811	宝	bǎo	Kho báu
+812	座	zuò	Chỗ ngồi
+813	释	shì	Giải thích
+814	景	jǐng	Tĩnh
+815	顾	gù	Gu
+816	弟	dì	Em trai
+817	登	dēng	Ban
+818	货	huò	Hàng hóa
+819	互	hù	Tương thân
+820	付	fù	Với
+821	伯	bó	Bác
+822	慢	màn	Chậm
+823	欧	ōu	Châu âu
+824	换	huàn	Thay đổi
+825	闻	wén	Mùi
+826	危	wēi	Quan trọng
+827	忙	máng	Bận
+828	核	hé	Lõi
+829	暗	àn	Tối
+830	姐	jiě	Chị gái
+831	介	jiè	Giới thiệu
+832	坏	huài	Xấu
+833	讨	tǎo	Thảo luận
+834	丽	lì	Đẹp
+835	良	liáng	Tốt
+836	序	xù	Đặt hàng
+837	升	shēng	L
+838	监	jiān	Nhà tù
+839	临	lín	Mùa Vọng
+840	亮	liàng	Sáng
+841	露	lù	Sương
+842	永	yǒng	Mãi mãi
+843	呼	hū	Gọi
+844	味	wèi	Hương vị
+845	野	yě	Hoang dã
+846	架	jià	Khung
+847	域	yù	Tên miền
+848	沙	shā	Cát
+849	掉	diào	Thả
+850	括	kuò	Bao gồm
+851	舰	jiàn	Tàu
+852	鱼	yú	Cá
+853	杂	zá	Linh tinh
+854	误	wù	Sai lầm
+855	湾	wān	Vịnh
+856	吉	jí	Tốt lành
+857	减	jiǎn	Trừ đi
+858	编	biān	Chỉnh sửa
+859	楚	chǔ	Chu
+860	肯	kěn	Ken
+861	测	cè	Kiểm tra
+862	败	bài	Thất bại
+863	屋	wū	Nhà
+864	跑	pǎo	Chạy
+865	梦	mèng	Giấc mơ
+866	散	sàn	Phân tán
+867	温	wēn	Ôn
+868	困	kùn	Buồn ngủ
+869	剑	jiàn	Kiếm
+870	渐	jiàn	Dần dần
+871	封	fēng	Con dấu
+872	救	jiù	Lưu lại
+873	贵	guì	Đắt tiền
+874	枪	qiāng	Súng
+875	缺	quē	Thiếu
+876	楼	lóu	Tầng
+877	县	xiàn	Quận
+878	尚	shàng	Vẫn
+879	毫	háo	Cent
+880	移	yí	Ca
+881	娘	niáng	Con gái
+882	朋	péng	Bạn bè
+883	画	huà	Tranh
+884	班	bān	Lớp học
+885	智	zhì	Trí tuệ
+886	亦	yì	Ngoài ra
+887	耳	ěr	Tai
+888	恩	ēn	En
+889	短	duǎn	Ngắn
+890	掌	zhǎng	Lòng bàn tay
+891	恐	kǒng	Sợ hãi
+892	遗	yí	Di sản
+893	固	gù	Rắn
+894	席	xí	Chỗ ngồi
+895	松	sōng	Lỏng
+896	秘	mì	Bí mật
+897	谢	xiè	Cảm ơn
+898	鲁	lǔ	Lu
+899	遇	yù	Gặp phải
+900	康	kāng	Kang
+901	虑	lǜ	Cân nhắc
+902	幸	xìng	May mắn thay
+903	均	jūn	Trung bình
+904	销	xiāo	Bán
+905	钟	zhōng	Chuông
+906	诗	shī	Bài thơ
+907	藏	cáng	Ẩn
+908	赶	gǎn	Nhanh lên
+909	剧	jù	Kịch
+910	票	piào	Vé
+911	损	sǔn	Mất
+912	忽	hū	Đột nhiên
+913	巨	jù	Người khổng lồ
+914	炮	pào	Pháo
+915	旧	jiù	Cũ
+916	端	duān	Kết thúc
+917	探	tàn	Khám phá
+918	湖	hú	Hồ
+919	录	lù	Ghi lại
+920	叶	xié	Lá
+921	春	chūn	Mùa xuân
+922	乡	xiāng	Thị trấn
+923	附	fù	Kèm theo
+924	吸	xī	Mút
+925	予	yú	Cho
+926	礼	lǐ	Lễ
+927	港	gǎng	Cảng
+928	雨	yǔ	Mưa
+929	呀	yā	Vâng
+930	板	bǎn	Ban
+931	庭	tíng	Tòa án
+932	妇	fù	Phụ nữ
+933	归	guī	Trở về
+934	睛	jīng	Mắt
+935	饭	fàn	Gạo
+936	额	é	Số tiền
+937	含	hán	Bao gồm
+938	顺	shùn	Mịn màng
+939	输	shū	Mất
+940	摇	yáo	Lắc
+941	招	zhāo	Thủ thuật
+942	婚	hūn	Kết hôn
+943	脱	tuō	Cất cánh
+944	补	bǔ	Trang điểm
+945	谓	wèi	Đó
+946	督	dū	Thống đốc
+947	毒	dú	Ngộ độc
+948	油	yóu	Dầu
+949	疗	liáo	Chữa bệnh
+950	旅	lǚ	Lữ đoàn
+951	泽	zé	Ze
+952	材	cái	Chất liệu
+953	灭	miè	Dập tắt
+954	逐	zhú	Đuổi theo
+955	莫	mò	Mơ
+956	笔	bǐ	Bút
+957	亡	wáng	Chết đi
+958	鲜	xiān	Tươi
+959	词	cí	Lời
+960	圣	shèng	Thánh
+961	择	zé	Chọn
+962	寻	xún	Tìm kiếm
+963	厂	chǎng	Nhà máy
+964	睡	shuì	Ngủ đi
+965	博	bó	Bồ
+966	勒	lè	Lê
+967	烟	yān	Khói
+968	授	shòu	Dạy
+969	诺	nuò	Hứa
+970	伦	lún	Âm lịch
+971	岸	àn	Bờ
+972	奥	ào	Áo
+973	唐	táng	Don
+974	卖	mài	Bán
+975	俄	é	Tiếng nga
+976	炸	zhà	Chiên
+977	载	zài	Đặt
+978	洛	luò	Lowe
+979	健	jiàn	Khỏe mạnh
+980	堂	táng	Hội trường
+981	旁	páng	Bên cạnh
+982	宫	gōng	Cung điện
+983	喝	hē	Uống
+984	借	jiè	Vay
+985	君	jūn	Bạn
+986	禁	jìn	Ban
+987	阴	yīn	U ám
+988	园	yuán	Vườn
+989	谋	móu	Âm mưu
+990	宋	sòng	Bài hát
+991	避	bì	Tránh
+992	抓	zhuā	Bắt
+993	荣	róng	Vinh quang
+994	姑	gū	Dì
+995	孙	sūn	Cháu
+996	逃	táo	Thoát
+997	牙	yá	Răng
+998	束	shù	Gói
+999	跳	tiào	Nhảy
+1000	顶	dǐng	Đầu trang
+1001	玉	yù	Ngọc
+1002	镇	zhèn	Thị trấn
+1003	雪	xuě	Tuyết
+1004	午	wǔ	Trưa
+1005	练	liàn	Thực hành
+1006	迫	pò	Buộc
+1007	爷	yé	Chúa
+1008	篇	piān	Điều
+1009	肉	ròu	Thịt
+1010	嘴	zuǐ	Miệng
+1011	馆	guǎn	Gian hàng
+1012	遍	biàn	Tất cả hơn
+1013	凡	fán	Ở đâu
+1014	础	chǔ	Nền tảng
+1015	洞	dòng	Lỗ
+1016	卷	juàn	Cuộn
+1017	坦	tǎn	Tân
+1018	牛	niú	Gia súc
+1019	宁	níng	Ninh
+1020	纸	zhǐ	Giấy
+1021	诸	zhū	Chu
+1022	训	xùn	Đào tạo
+1023	私	sī	Tôi
+1024	庄	zhuāng	Tràm
+1025	祖	zǔ	Tổ tiên
+1026	丝	sī	Lụa
+1027	翻	fān	Lật lại
+1028	暴	bào	Bạo lực
+1029	森	sēn	Rừng
+1030	塔	tǎ	Tháp
+1031	默	mò	Im lặng
+1032	握	wò	Giữ
+1033	戏	xì	Chơi
+1034	隐	yǐn	Ẩn
+1035	熟	shú	Chín
+1036	骨	gǔ	Xương
+1037	访	fǎng	Phỏng vấn
+1038	弱	ruò	Yếu
+1039	蒙	méng	Mạnh
+1040	歌	gē	Bài hát
+1041	店	diàn	Cửa hàng
+1042	鬼	guǐ	Ma
+1043	软	ruǎn	Mềm
+1044	典	diǎn	Mã
+1045	欲	yù	Mong muốn
+1046	萨	sà	Sa
+1047	伙	huǒ	Bạn đời
+1048	遭	zāo	Khổ
+1049	盘	pán	Tấm
+1050	爸	bà	Bố
+1051	扩	kuò	Mở rộng
+1052	盖	gài	Bìa
+1053	弄	nòng	Nhận
+1054	雄	xióng	Nam
+1055	稳	wěn	Ổn định
+1056	忘	wàng	Quên
+1057	亿	yì	Tỷ
+1058	刺	cì	Gai
+1059	拥	yǒng	Giữ
+1060	徒	tú	Chỉ cần
+1061	姆	mǔ	Mu
+1062	杨	yáng	Dương
+1063	齐	qí	Tề
+1064	赛	sài	Trận đấu
+1065	趣	qù	Thú vị
+1066	曲	qū	Bài hát
+1067	刀	dāo	Dao
+1068	床	chuáng	Giường
+1069	迎	yíng	Chào mừng bạn
+1070	冰	bīng	Băng
+1071	虚	xū	Ảo
+1072	玩	wán	Chơi
+1073	析	xī	Phân tích
+1074	窗	chuāng	Cửa sổ
+1075	醒	xǐng	Thức dậy
+1076	妻	qī	Vợ
+1077	透	tòu	Thông qua
+1078	购	gòu	Mua
+1079	替	tì	Thay thế
+1080	塞	sāi	Thứ
+1081	努	nǔ	Nữ
+1082	休	xiū	Hugh
+1083	虎	hǔ	Hổ
+1084	扬	yáng	Dương
+1085	途	tú	Cách
+1086	侵	qīn	Xâm lược
+1087	刑	xíng	Trừng phạt
+1088	绿	lǜ	Màu xanh
+1089	兄	xiōng	Anh trai
+1090	迅	xùn	Xun
+1091	套	tào	Đặt
+1092	贸	mào	Thương mại
+1093	毕	bì	Hoàn thành
+1094	唯	wéi	Chỉ
+1095	谷	gǔ	Thung lũng
+1096	轮	lún	Vòng
+1097	库	kù	Thư viện
+1098	迹	jī	Dấu vết
+1099	尤	yóu	Bạn
+1100	竞	jìng	Cạnh tranh
+1101	街	jiē	Đường phố
+1102	促	cù	Quảng bá
+1103	延	yán	Yan
+1104	震	zhèn	Sốc
+1105	弃	qì	Từ bỏ
+1106	甲	jiǎ	Một
+1107	伟	wěi	Tuyệt
+1108	麻	má	Cây gai dầu
+1109	川	chuān	Luân
+1110	申	shēn	Thần
+1111	缓	huǎn	Chậm
+1112	潜	qián	Lặn
+1113	闪	shǎn	Đèn flash
+1114	售	shòu	Cần bán
+1115	灯	dēng	Đèn
+1116	针	zhēn	Kim
+1117	哲	zhé	Chiêu
+1118	络	luò	Mạng
+1119	抵	dǐ	Đến nơi
+1120	朱	zhū	Chu
+1121	埃	āi	Một
+1122	抱	bào	Ôm
+1123	鼓	gǔ	Trống
+1124	植	zhí	Nhà máy
+1125	纯	chún	Tinh khiết
+1126	夏	xià	Mùa hè
+1127	忍	rěn	Chịu đựng
+1128	页	yè	Trang
+1129	杰	jié	Jay
+1130	筑	zhú	Xây dựng
+1131	折	zhé	Gấp
+1132	郑	zhèng	Trịnh
+1133	贝	bèi	Động vật có vỏ
+1134	尊	zūn	Tôn trọng
+1135	吴	wú	Ngô
+1136	秀	xiù	Hiển thị
+1137	混	hùn	Trộn
+1138	臣	chén	Bộ trưởng
+1139	雅	yǎ	Thanh lịch
+1140	振	zhèn	Rung
+1141	染	rǎn	Nhuộm
+1142	盛	shèng	Sheng
+1143	怒	nù	Tức giận
+1144	舞	wǔ	Nhảy múa
+1145	圆	yuán	Vòng tròn
+1146	搞	gǎo	Tham gia
+1147	狂	kuáng	Điên
+1148	措	cuò	Đo lường
+1149	姓	xìng	Họ
+1150	残	cán	Khuyết tật
+1151	秋	qiū	Mùa thu
+1152	培	péi	Tàu hỏa
+1153	迷	mí	Quạt
+1154	诚	chéng	Chân thành
+1155	宽	kuān	Rộng
+1156	宇	yǔ	Vũ
+1157	猛	měng	Mạnh mẽ
+1158	摆	bǎi	Xích đu
+1159	梅	méi	Tháng 5
+1160	毁	huǐ	Tàn tích
+1161	伸	shēn	Căng
+1162	摩	mó	Núi
+1163	盟	méng	Liên minh
+1164	末	mò	Kết thúc
+1165	乃	nǎi	Nai
+1166	悲	bēi	Buồn
+1167	拍	pāi	Bắn
+1168	丁	dīng	Đinh
+1169	赵	zhào	Triệu
+1170	硬	yìng	Khó
+1171	麦	mài	Mai
+1172	蒋	jiǎng	Giang
+1173	操	cāo	Mẹ kiếp
+1174	耶	yé	Vâng
+1175	阻	zǔ	Cản trở
+1176	订	dìng	Đặt hàng
+1177	彩	cǎi	Màu
+1178	抽	chōu	Vẽ
+1179	赞	zàn	Thích
+1180	魔	mó	Phép thuật
+1181	纷	fēn	Nhiều
+1182	沿	yán	Cùng
+1183	喊	hǎn	Tiếng hét
+1184	违	wéi	Vi phạm
+1185	妹	mèi	Chị
+1186	浪	làng	Sóng
+1187	汇	huì	Chìm
+1188	币	bì	Tiền xu
+1189	丰	fēng	Dồi dào
+1190	蓝	lán	Màu xanh
+1191	殊	shū	Đặc biệt
+1192	献	xiàn	Ưu đãi
+1193	桌	zhuō	Bảng
+1194	啦	la	La
+1195	瓦	wǎ	Ngói
+1196	莱	lái	Rai
+1197	援	yuán	Viện trợ
+1198	译	yì	Dịch
+1199	夺	duó	Nắm bắt
+1200	汽	qì	Hơi nước
+1201	烧	shāo	Đốt
+1202	距	jù	Khoảng cách
+1203	裁	cái	Cắt
+1204	偏	piān	Một phần
+1205	符	fú	Phá vỡ
+1206	勇	yǒng	Dũng cảm
+1207	触	chù	Chạm
+1208	课	kè	Bài học
+1209	敬	jìng	Tôn trọng
+1210	哭	kū	Khóc
+1211	懂	dǒng	Hiểu
+1212	墙	qiáng	Tường
+1213	袭	xí	Tấn công
+1214	召	zhào	Triệu tập
+1215	罚	fá	Hình phạt
+1216	侠	xiá	Tiểu Hạ
+1217	厅	tīng	Hội trường
+1218	拜	bài	Tạm biệt
+1219	巧	qiǎo	Sự trùng hợp
+1220	侧	cè	Bên
+1221	韩	hán	Hàn
+1222	冒	mào	Rủi ro
+1223	债	zhài	Nợ
+1224	曼	màn	Người đàn ông
+1225	融	róng	Tan chảy
+1226	惯	guàn	Quen
+1227	享	xiǎng	Thưởng thức
+1228	戴	dài	Mặc
+1229	童	tóng	Đứa trẻ
+1230	犹	yóu	Vẫn
+1231	乘	chéng	Nhân lên
+1232	挂	guà	Hằng
+1233	奖	jiǎng	Giải thưởng
+1234	绍	shào	Thiệu
+1235	厚	hòu	Dày
+1236	纵	zòng	Theo chiều dọc
+1237	障	zhàng	Rào chắn
+1238	讯	xùn	Tin tức
+1239	涉	shè	Tham gia
+1240	彻	chè	Triệt để
+1241	刊	kān	Tạp chí
+1242	丈	zhàng	Chiều dài
+1243	爆	bào	Bùng nổ
+1244	乌	wū	Ngô
+1245	役	yì	Vai trò
+1246	描	miáo	Dấu vết
+1247	洗	xǐ	Rửa
+1248	玛	mǎ	Ma
+1249	患	huàn	Khổ
+1250	妙	miào	Tuyệt vời
+1251	镜	jìng	Gương
+1252	唱	chàng	Hát
+1253	烦	fán	Phiền
+1254	签	qiān	Ký tên
+1255	仙	xiān	Cổ tích
+1256	彼	bǐ	Anh ấy
+1257	弗	fú	Phù du
+1258	症	zhèng	Bệnh tật
+1259	仿	fǎng	Bắt chước
+1260	倾	qīng	Lean
+1261	牌	pái	Thẻ
+1262	陷	xiàn	Chìm
+1263	鸟	niǎo	Chim
+1264	轰	hōng	Bùng nổ
+1265	咱	zán	Chúng tôi
+1266	菜	cài	Món ăn
+1267	闭	bì	Đóng
+1268	奋	fèn	Fen
+1269	庆	qìng	Kỷ niệm
+1270	撤	chè	Rút tiền
+1271	泪	lèi	Nước mắt
+1272	茶	chá	Trà
+1273	疾	jí	Nhanh
+1274	缘	yuán	Số phận
+1275	播	bō	Phát sóng
+1276	朗	lǎng	Lang
+1277	杜	dù	Du
+1278	奶	nǎi	Sữa
+1279	季	jì	Quý
+1280	丹	dān	Dân
+1281	狗	gǒu	Chó
+1282	尾	wěi	Đuôi
+1283	仪	yí	Nhạc cụ
+1284	偷	tōu	Ăn cắp
+1285	奔	bēn	Bến
+1286	珠	zhū	Hạt
+1287	虫	chóng	Giun
+1288	驻	zhù	Cư trú
+1289	孔	kǒng	Lỗ
+1290	宜	yí	Nên
+1291	艾	ài	Ai
+1292	桥	qiáo	Cầu
+1293	淡	dàn	Ánh sáng
+1294	翼	yì	Cánh
+1295	恨	hèn	Ghét
+1296	繁	fán	Phức tạp
+1297	寒	hán	Lạnh
+1298	伴	bàn	Đồng hành
+1299	叹	tàn	Thở dài
+1300	旦	dàn	Một lần
+1301	愈	yù	Thêm
+1302	潮	cháo	Thủy triều
+1303	粮	liáng	Hạt
+1304	缩	suō	Co lại
+1305	罢	bà	Dừng lại
+1306	聚	jù	Tập hợp
+1307	径	jìng	Đường mòn
+1308	恰	qià	Chính xác
+1309	挑	tiāo	Chọn
+1310	袋	dài	Túi
+1311	灰	huī	Xám
+1312	捕	bǔ	Bắt
+1313	徐	xú	Xu
+1314	珍	zhēn	Jane
+1315	幕	mù	Rèm
+1316	映	yìng	Phản ánh
+1317	裂	liè	Nứt
+1318	泰	tài	Thái lan
+1319	隔	gé	Trên khắp
+1320	启	qǐ	Kai
+1321	尖	jiān	Sắc nét
+1322	忠	zhōng	Trung thành
+1323	累	lèi	Mệt mỏi
+1324	炎	yán	Viêm
+1325	暂	zàn	Tạm thời
+1326	估	gū	Ước tính
+1327	泛	fàn	Pan
+1328	荒	huāng	Cằn cỗi
+1329	偿	cháng	Thanh toán
+1330	横	héng	Đường đi
+1331	拒	jù	Từ chối
+1332	瑞	ruì	Thụy Sĩ
+1333	忆	yì	Nhớ lại
+1334	孤	gū	Cô độc
+1335	鼻	bí	Mũi
+1336	闹	nào	Gây rắc rối
+1337	羊	yáng	Cừu
+1338	呆	dāi	Ngốc
+1339	厉	lì	Mạnh mẽ
+1340	衡	héng	Tỷ lệ
+1341	胞	bāo	Tế bào
+1342	零	líng	Không
+1343	穷	qióng	Nghèo
+1344	舍	shè	Đổ
+1345	码	mǎ	Sân
+1346	赫	hè	Anh ấy
+1347	婆	pó	Mẹ chồng
+1348	魂	hún	Linh hồn
+1349	灾	zāi	Thảm họa
+1350	洪	hóng	Hồng
+1351	腿	tuǐ	Chân
+1352	胆	dǎn	Gall
+1353	津	jīn	Tsu
+1354	俗	sú	Thông tục
+1355	辩	biàn	Tranh cãi
+1356	胸	xiōng	Ngực
+1357	晓	xiǎo	Xiao
+1358	劲	jìng	Mạnh mẽ
+1359	贫	pín	Nghèo
+1360	仁	rén	Nhân từ
+1361	偶	ǒu	Thậm chí
+1362	辑	jí	Loạt
+1363	邦	bāng	Nhà nước
+1364	恢	huī	Khôi phục
+1365	赖	lài	Lai
+1366	圈	quān	Vòng tròn
+1367	摸	mō	Chạm
+1368	仰	yǎng	Tra cứu
+1369	润	rùn	Chạy
+1370	堆	duī	Đống
+1371	碰	pèng	Chạm
+1372	艇	tǐng	Thuyền
+1373	稍	shāo	Hơi
+1374	迟	chí	Muộn
+1375	辆	liàng	Xe hơi
+1376	废	fèi	Chất thải
+1377	净	jìng	Mạng
+1378	凶	xiōng	Mạnh mẽ
+1379	署	shǔ	Sở
+1380	壁	bì	Tường
+1381	御	yù	Bạn
+1382	奉	fèng	Bông
+1383	旋	xuán	Quay
+1384	冬	dōng	Mùa đông
+1385	矿	kuàng	Của tôi
+1386	抬	tái	Nâng
+1387	蛋	dàn	Trứng
+1388	晨	chén	Buổi sáng
+1389	伏	fú	Vôn kế
+1390	吹	chuī	Thổi
+1391	鸡	jī	Gà
+1392	倍	bèi	Thời đại
+1393	糊	hú	Dán
+1394	秦	qín	Tần
+1395	盾	dùn	Khiên
+1396	杯	bēi	Cốc
+1397	租	zū	Cho thuê
+1398	骑	qí	Đi xe
+1399	乏	fá	Thiếu
+1400	隆	lóng	Dài
+1401	诊	zhěn	Tư vấn
+1402	奴	nú	Người đó
+1403	摄	shè	Ảnh
+1404	丧	sāng	Thương tiếc
+1405	污	wū	Bẩn
+1406	渡	dù	Thánh giá
+1407	旗	qí	Cờ
+1408	甘	gān	Ngọt ngào
+1409	耐	nài	Gấu
+1410	凭	píng	Dựa vào
+1411	扎	zhā	Cà vạt
+1412	抢	qiǎng	Lấy
+1413	绪	xù	Chủ đề
+1414	粗	cū	Thô
+1415	肩	jiān	Vai
+1416	梁	liáng	Chùm
+1417	幻	huàn	Phép thuật
+1418	菲	fēi	Phi
+1419	皆	jiē	Tất cả
+1420	碎	suì	Bị hỏng
+1421	宙	zhòu	Trong không khí
+1422	叔	shū	Bác
+1423	岩	yán	Đá
+1424	荡	dàng	Xích đu
+1425	综	zòng	Toàn diện
+1426	爬	pá	Leo lên
+1427	荷	hé	Hà Lan
+1428	悉	xī	Học
+1429	蒂	dì	Tee
+1430	返	fǎn	Trở về
+1431	井	jǐng	Vâng
+1432	壮	zhuàng	Mạnh mẽ
+1433	薄	bó	Mỏng
+1434	悄	qiǎo	Lặng lẽ
+1435	扫	sǎo	Quét
+1436	敏	mǐn	Tối thiểu
+1437	碍	ài	Cản trở
+1438	殖	zhí	Thuộc địa
+1439	详	xiáng	Chi tiết
+1440	迪	dí	Dee
+1441	矛	máo	Giáo
+1442	霍	huò	Hồ
+1443	允	yǔn	Cho phép
+1444	幅	fú	Chiều rộng
+1445	撒	sā	Phân tán
+1446	剩	shèng	Còn lại
+1447	凯	kǎi	Kay
+1448	颗	kē	Mảnh
+1449	骂	mà	Mắng
+1450	赏	shǎng	Phần thưởng
+1451	液	yè	Chất lỏng
+1452	番	fān	Biến
+1453	箱	xiāng	Hộp
+1454	贴	tiē	Dán
+1455	漫	màn	Khuếch tán
+1456	酸	suān	Axit
+1457	郎	láng	Lang
+1458	腰	yāo	Eo
+1459	舒	shū	Thư
+1460	眉	méi	Lông mày
+1461	忧	yōu	Lo lắng
+1462	浮	fú	Phao
+1463	辛	xīn	Xin chào
+1464	恋	liàn	Tình yêu
+1465	餐	cān	Bữa ăn
+1466	吓	xià	Sợ
+1467	挺	tǐng	Khá
+1468	励	lì	Khuyến khích
+1469	辞	cí	Từ chức
+1470	艘	sāo	Tàu
+1471	键	jiàn	Chìa khóa
+1472	伍	wǔ	Ngô
+1473	峰	fēng	Đỉnh điểm
+1474	尺	chǐ	Thước kẻ
+1475	昨	zuó	Hôm qua
+1476	黎	lí	Li
+1477	辈	bèi	Thế hệ
+1478	贯	guàn	Xỏ
+1479	侦	zhēn	Phát hiện
+1480	滑	huá	Trượt
+1481	券	quàn	Vé
+1482	崇	chóng	Chong
+1483	扰	rǎo	Làm phiền
+1484	宪	xiàn	Hiến pháp
+1485	绕	rào	Xung quanh
+1486	趋	qū	Có xu hướng
+1487	慈	cí	Tử tế
+1488	乔	qiáo	Joe
+1489	阅	yuè	Đọc
+1490	汗	hàn	Đổ mồ hôi
+1491	枝	zhī	Cây gậy
+1492	拖	tuō	Kéo
+1493	墨	mò	Mực
+1494	胁	xié	Đe dọa
+1495	插	chā	Chèn
+1496	箭	jiàn	Mũi tên
+1497	腊	là	Sáp
+1498	粉	fěn	Bột
+1499	泥	ní	Bùn
+1500	氏	shì	Ông
+1501	彭	péng	Bành
+1502	拔	bá	Kéo ra
+1503	骗	piàn	Gian lận
+1504	凤	fèng	Phượng hoàng
+1505	慧	huì	Hui
+1506	媒	méi	Phương tiện truyền thông
+1507	佩	pèi	Pei
+1508	愤	fèn	Phẫn nộ
+1509	扑	pū	Rung
+1510	龄	líng	Tuổi
+1511	驱	qū	Lái xe
+1512	惜	xī	Đáng tiếc
+1513	豪	háo	Làm thế nào
+1514	掩	yǎn	Bìa
+1515	兼	jiān	Đồng thời
+1516	跃	yuè	Nhảy
+1517	尸	shī	Chết rồi
+1518	肃	sù	Su
+1519	帕	pà	Mệnh
+1520	驶	shǐ	Lái xe
+1521	堡	bǎo	Pháo đài
+1522	届	jiè	Phiên
+1523	欣	xīn	Xin chào
+1524	惠	huì	Lợi ích
+1525	册	cè	Sách
+1526	储	chǔ	Cửa hàng
+1527	飘	piāo	Phao
+1528	桑	sāng	Sang
+1529	闲	xián	Nhàn rỗi
+1530	惨	cǎn	Khốn khổ
+1531	洁	jí	Sạch sẽ
+1532	踪	zōng	Dấu vết
+1533	勃	bó	Nhàm chán
+1534	宾	bīn	Thùng
+1535	频	pín	Tần suất
+1536	仇	chóu	Qiu
+1537	磨	mó	Nghiền
+1538	递	dì	Cung cấp
+1539	邪	xié	Ác
+1540	撞	zhuàng	Bump
+1541	拟	nǐ	Kế hoạch
+1542	滚	gǔn	Cuộn
+1543	奏	zòu	Chơi
+1544	巡	xún	Tuần tra
+1545	颜	yán	Yan
+1546	剂	jì	Đại lý
+1547	绩	jī	Hiệu suất
+1548	贡	gòng	Tribute
+1549	疯	fēng	Điên
+1550	坡	pō	Độ dốc
+1551	瞧	qiáo	Voila
+1552	截	jié	Cắt
+1553	燃	rán	Đốt
+1554	焦	jiāo	Than cốc
+1555	殿	diàn	Hội trường
+1556	伪	wěi	Giả
+1557	柳	liǔ	Liễu
+1558	锁	suǒ	Khóa
+1559	逼	bī	Lực lượng
+1560	颇	pǒ	Khá
+1561	昏	hūn	Ngất
+1562	劝	quàn	Thuyết phục
+1563	呈	chéng	Hiện tại
+1564	搜	sōu	Tìm kiếm
+1565	勤	qín	Siêng năng
+1566	戒	jiè	Kiêng
+1567	驾	jià	Lái xe
+1568	漂	piāo	Phao
+1569	饮	yǐn	Uống đi
+1570	曹	cáo	Cao
+1571	朵	duǒ	Hoa
+1572	仔	zǐ	Trẻ
+1573	柔	róu	Mềm
+1574	俩	liǎ	Cả hai
+1575	孟	mèng	Mạnh
+1576	腐	fǔ	Xoay
+1577	幼	yòu	Trẻ
+1578	践	jiàn	Thực hành
+1579	籍	jí	Quốc tịch
+1580	牧	mù	Chăn nuôi
+1581	凉	liáng	Tuyệt
+1582	牲	shēng	Động vật
+1583	佳	jiā	Tốt
+1584	娜	nuó	Na
+1585	浓	nóng	Dày
+1586	芳	fāng	Phương
+1587	稿	gǎo	Dự thảo
+1588	竹	zhú	Tre
+1589	腹	fù	Bụng
+1590	跌	diē	Mùa thu
+1591	逻	luó	Logic
+1592	垂	chuí	Nhỏ giọt
+1593	遵	zūn	Vâng lời
+1594	脉	mài	Xung
+1595	貌	mào	Ngoại hình
+1596	柏	bǎi	Cây bách
+1597	狱	yù	Nhà tù
+1598	猜	cāi	Đoán
+1599	怜	lián	Đáng tiếc
+1600	惑	huò	Bối rối
+1601	陶	táo	Đạo
+1602	兽	shòu	Quái thú
+1603	帐	zhàng	Tài khoản
+1604	饰	shì	Trang trí
+1605	贷	dài	Vay
+1606	昌	chāng	Thay đổi
+1607	叙	xù	Kể lại
+1608	躺	tǎng	Nằm xuống
+1609	钢	gāng	Thép
+1610	沟	gōu	Mương
+1611	寄	jì	Gửi
+1612	扶	fú	Giúp
+1613	铺	pū	Cửa hàng
+1614	邓	dèng	Đặng
+1615	寿	shòu	Tuổi thọ
+1616	惧	jù	Sợ hãi
+1617	询	xún	Hỏi thăm
+1618	汤	tāng	Súp
+1619	盗	dào	Trộm cắp
+1620	肥	féi	Béo
+1621	尝	cháng	Hương vị
+1622	匆	cōng	Nhanh lên
+1623	辉	huī	Hui
+1624	奈	nài	Chennai
+1625	扣	kòu	Khóa
+1626	廷	tíng	Tin
+1627	澳	ào	Úc
+1628	嘛	ma	Vâng
+1629	董	dǒng	Đồng
+1630	迁	qiān	Di chuyển
+1631	凝	níng	Ninh
+1632	慰	wèi	Thoải mái
+1633	厌	yàn	Mệt mỏi vì
+1634	脏	zāng	Bẩn
+1635	腾	téng	Teng
+1636	幽	yōu	Yên tĩnh
+1637	怨	yuàn	Khiếu nại
+1638	鞋	xié	Giày dép
+1639	丢	diū	Ném
+1640	埋	mái	Chôn
+1641	泉	quán	Mùa xuân
+1642	涌	yǒng	Vội vàng
+1643	辖	xiá	Chính phủ
+1644	躲	duǒ	Ẩn
+1645	晋	jìn	Jin
+1646	紫	zǐ	Màu tím
+1647	艰	jiān	Khó khăn
+1648	魏	wèi	Vĩ
+1649	吾	wú	Tôi
+1650	慌	huāng	Hoảng loạn
+1651	祝	zhù	Chúc
+1652	邮	yóu	Bài viết
+1653	吐	tǔ	Nôn
+1654	狠	hěn	Tàn nhẫn
+1655	鉴	jiàn	Kiến
+1656	曰	yuē	Nói
+1657	械	xiè	Vũ khí
+1658	咬	yǎo	Cắn
+1659	邻	lín	Hàng xóm
+1660	赤	chì	Màu đỏ
+1661	挤	jǐ	Bóp
+1662	弯	wān	Uốn cong
+1663	椅	yǐ	Ghế
+1664	陪	péi	Đồng hành
+1665	割	gē	Phần trăm
+1666	揭	jiē	Tiếp xúc
+1667	韦	wéi	Vĩ
+1668	悟	wù	Khai sáng
+1669	聪	cōng	Satoshi
+1670	雾	wù	Sương mù
+1671	锋	fēng	Mặt trận
+1672	梯	tī	Thang
+1673	猫	māo	Mèo
+1674	祥	xiáng	Tốt lành
+1675	阔	kuò	Rộng
+1676	誉	yù	Danh tiếng
+1677	筹	chóu	Tăng
+1678	丛	cóng	Cục
+1679	牵	qiān	Chì
+1680	鸣	míng	Minh
+1681	沈	chén	Chìm
+1682	阁	gé	Gian hàng
+1683	穆	mù	Mu
+1684	屈	qū	Uốn cong
+1685	旨	zhǐ	Mục đích
+1686	袖	xiù	Tay áo
+1687	猎	xí	Săn
+1688	臂	bì	Cánh tay
+1689	蛇	shé	Rắn
+1690	贺	hè	Chúc mừng
+1691	柱	zhù	Cột
+1692	抛	pāo	Toss
+1693	鼠	shǔ	Chuột
+1694	瑟	sè	Sẽ
+1695	戈	gē	Đi
+1696	牢	láo	Nhà tù
+1697	逊	xùn	Kém hơn
+1698	迈	mài	Mai
+1699	欺	qī	Bắt nạt
+1700	吨	dūn	Tấn
+1701	琴	qín	Tần
+1702	衰	shuāi	Từ chối
+1703	瓶	píng	Chai
+1704	恼	nǎo	Bực mình
+1705	燕	yàn	Yan
+1706	仲	zhòng	Trung
+1707	诱	yòu	Thu hút
+1708	狼	láng	Sói
+1709	池	chí	Bể bơi
+1710	疼	téng	Làm tổn thương
+1711	卢	lú	Lu
+1712	仗	zhàng	Đánh nhau
+1713	冠	guān	Vương miện
+1714	粒	lì	Hạt
+1715	遥	yáo	Điều khiển từ xa
+1716	吕	lǚ	Lu
+1717	玄	xuán	Bí ẩn
+1718	尘	chén	Bụi
+1719	冯	féng	Phong
+1720	抚	fǔ	Vuốt ve
+1721	浅	qiǎn	Nông
+1722	敦	dūn	Dun
+1723	纠	jiū	Đúng
+1724	钻	zuàn	Khoan
+1725	晶	jīng	Pha lê
+1726	岂	qǐ	Tề
+1727	峡	xiá	Hẻm núi
+1728	苍	cāng	Cang
+1729	喷	pēn	Xịt
+1730	耗	hào	Tiêu thụ
+1731	凌	líng	Linh
+1732	敲	qiāo	Gõ
+1733	菌	jūn	Nấm
+1734	赔	péi	Thanh toán
+1735	涂	tú	Tu
+1736	粹	cuì	Tinh hoa
+1737	扁	biǎn	Căn hộ
+1738	亏	yú	Mất
+1739	寂	jì	Im lặng
+1740	煤	méi	Than
+1741	熊	xióng	Gấu
+1742	恭	gōng	Trân trọng
+1743	湿	shī	Ướt
+1744	循	xún	Theo dõi
+1745	暖	nuǎn	Ấm áp
+1746	糖	táng	Đường
+1747	赋	fù	Tài trợ
+1748	抑	yì	Hạn chế
+1749	秩	zhì	Thứ hạng
+1750	帽	mào	Mũ lưỡi trai
+1751	哀	āi	Thương tiếc
+1752	宿	sù	Nhà nghỉ
+1753	踏	tà	Bước đi
+1754	烂	làn	Thối
+1755	袁	yuán	Nguyên
+1756	侯	hóu	Hou
+1757	抖	dǒu	Lắc
+1758	夹	jiā	Clip
+1759	昆	kūn	Côn
+1760	肝	gān	Gan
+1761	擦	cā	Lau
+1762	猪	zhū	Lợn
+1763	炼	liàn	Tinh chế
+1764	恒	héng	Hoành
+1765	慎	shèn	Thận trọng
+1766	搬	bān	Di chuyển
+1767	纽	niǔ	Mới
+1768	纹	wén	Hạt
+1769	玻	bō	Kính
+1770	渔	yú	Câu cá
+1771	磁	cí	Từ tính
+1772	铜	tóng	Đồng
+1773	齿	chǐ	Răng
+1774	跨	kuà	Thánh giá
+1775	押	yā	Đặt cược
+1776	怖	bù	Sợ
+1777	漠	mò	Sa mạc
+1778	疲	pí	Mệt mỏi
+1779	叛	pàn	Phản bội
+1780	遣	qiǎn	Gửi
+1781	兹	zī	Tôi
+1782	祭	jì	Lễ hội
+1783	醉	zuì	Say rượu
+1784	拳	quán	Quyền anh
+1785	弥	mí	Ơ
+1786	斜	xié	Xiên
+1787	档	dǎng	Tập tin
+1788	稀	xī	Hiếm
+1789	捷	jié	Jie
+1790	肤	fū	Da
+1791	疫	yì	Bệnh dịch
+1792	肿	zhǒng	Sưng
+1793	豆	dòu	Đậu
+1794	削	xuē	Cắt
+1795	岗	gǎng	Băng đảng
+1796	晃	huǎng	Akira
+1797	吞	tūn	Nuốt
+1798	宏	hóng	Vĩ mô
+1799	癌	ái	Ung thư
+1800	肚	dù	Bụng
+1801	隶	lì	Li
+1802	履	lǚ	Theo dõi
+1803	涨	zhǎng	Lên
+1804	耀	yào	Yao
+1805	扭	niǔ	Xoắn
+1806	坛	tán	Bàn thờ
+1807	拨	bō	Quay số
+1808	沃	wò	Ái chà
+1809	绘	huì	Sơn
+1810	伐	fá	Cắt
+1811	堪	kān	Đáng giá
+1812	仆	pū	Người giúp việc
+1813	郭	guō	Quách
+1814	牺	xī	Hy sinh
+1815	歼	jiān	Hủy diệt
+1816	墓	mù	Lăng mộ
+1817	雇	gù	Thuê
+1818	廉	lián	Giá rẻ
+1819	契	qì	Hợp đồng
+1820	拼	pīn	Đánh nhau
+1821	惩	chéng	Trừng phạt
+1822	捉	zhuō	Bắt
+1823	覆	fù	Ghi đè
+1824	刷	shuā	Bàn chải
+1825	劫	jié	Cướp
+1826	嫌	xián	Không thích
+1827	瓜	guā	Dưa
+1828	歇	xiē	Phá vỡ
+1829	雕	diāo	Khắc
+1830	闷	mèn	Chán
+1831	乳	rǔ	Sữa
+1832	串	chuàn	Chuỗi
+1833	娃	wá	Em yêu
+1834	缴	jiǎo	Thanh toán
+1835	唤	huàn	Gọi
+1836	赢	yíng	Giành chiến thắng
+1837	莲	lián	Hoa sen
+1838	霸	bà	Thống trị
+1839	桃	táo	Đào
+1840	妥	tuǒ	Đúng
+1841	瘦	shòu	Gầy
+1842	搭	dā	Đi xe
+1843	赴	fù	Đi đến
+1844	岳	yuè	Nhạc chuông
+1845	嘉	jiā	Gia
+1846	舱	cāng	Cabin
+1847	俊	jùn	Đẹp trai
+1848	址	zhǐ	Địa chỉ
+1849	庞	páng	Pang
+1850	耕	gēng	Cày
+1851	锐	ruì	Sắc nét
+1852	缝	féng	Rạch
+1853	悔	huǐ	Hối hận
+1854	邀	yāo	Mời
+1855	玲	líng	Linh
+1856	惟	wéi	Chỉ
+1857	斥	chì	Quở trách
+1858	宅	zhái	Nhà
+1859	添	tiān	Tim
+1860	挖	wā	Đào
+1861	呵	hē	Ơ
+1862	讼	sòng	Kiện tụng
+1863	氧	yǎng	Oxy
+1864	浩	hào	Hồ
+1865	羽	yǔ	Lông
+1866	斤	jīn	Catty
+1867	酷	kù	Tuyệt
+1868	掠	lüè	Cướp bóc
+1869	妖	yāo	Quỷ
+1870	祸	huò	Thảm họa
+1871	侍	shì	Người phục vụ
+1872	乙	yǐ	B
+1873	妨	fáng	Tháng 5
+1874	贪	tān	Tham lam
+1875	挣	zhēng	Kiếm tiền
+1876	汪	wāng	Vương
+1877	尿	niào	Nước tiểu
+1878	莉	lì	Li
+1879	悬	xuán	Phần nhô ra
+1880	唇	chún	Môi
+1881	翰	hàn	John
+1882	仓	cāng	Kho
+1883	轨	guǐ	Đường sắt
+1884	枚	méi	Tờ
+1885	盐	yán	Muối
+1886	览	lǎn	Xem
+1887	傅	fù	Fu
+1888	帅	shuài	Đẹp trai
+1889	庙	miào	Đền
+1890	芬	fēn	Vây
+1891	屏	píng	Màn hình
+1892	寺	sì	Đền
+1893	胖	pàng	Béo
+1894	璃	lí	Kính
+1895	愚	yú	Ngốc
+1896	滴	dī	Nhỏ giọt
+1897	疏	shū	Thưa thớt
+1898	萧	xiāo	Xiao
+1899	姿	zī	Ngoại hình
+1900	颤	zhàn	Run rẩy
+1901	丑	chǒu	Xấu xí
+1902	劣	liè	Kém hơn
+1903	柯	kē	Kế
+1904	寸	cùn	Inch
+1905	扔	rēng	Ném
+1906	盯	dīng	Nhìn chằm chằm
+1907	辱	rǔ	Xúc phạm
+1908	匹	pǐ	Động vật
+1909	俱	jù	Tất cả
+1910	辨	biàn	Phân biệt đối xử
+1911	饿	è	Đói
+1912	蜂	fēng	Con ong
+1913	哦	é	Ồ
+1914	腔	qiāng	Khoang
+1915	郁	yù	Trầm cảm
+1916	溃	kuì	Thu gọn
+1917	谨	jǐn	Trân trọng
+1918	糟	zāo	Xấu
+1919	葛	gé	Địa chất
+1920	苗	miáo	Miao
+1921	肠	cháng	Ruột
+1922	忌	jì	Không có
+1923	溜	liū	Trượt
+1924	鸿	hóng	Tuyệt
+1925	爵	jué	Chúa
+1926	鹏	péng	Bành
+1927	鹰	yīng	Đại bàng
+1928	笼	lóng	Lồng
+1929	丘	qiū	Qiu
+1930	桂	guì	Gui
+1931	滋	zī	Nuôi dưỡng
+1932	聊	liáo	Trò chuyện
+1933	挡	dǎng	Chặn
+1934	纲	gāng	Băng đảng
+1935	肌	jī	Da
+1936	茨	cí	Ci
+1937	壳	ké	Vỏ
+1938	痕	hén	Sẹo
+1939	碗	wǎn	Bát
+1940	穴	xué	Lỗ
+1941	膀	bǎng	Bàng quang
+1942	卓	zhuō	Trác
+1943	贤	xián	Đức hạnh
+1944	卧	wò	Nằm
+1945	膜	mò	Màng lọc
+1946	毅	yì	Sự kiên trì
+1947	锦	jǐn	Thổ cẩm
+1948	欠	qiàn	Ôi
+1949	哩	lī	dặm
+1950	函	hán	Thư
+1951	茫	máng	Vast
+1952	昂	áng	Thiên thần
+1953	薛	xuē	Xue
+1954	皱	zhòu	Nếp nhăn
+1955	夸	kuā	Tự hào
+1956	豫	yù	Vũ
+1957	胃	wèi	Dạ dày
+1958	舌	shé	Lưỡi
+1959	剥	bō	Dải
+1960	傲	ào	Tự hào
+1961	拾	shí	Đón
+1962	窝	wō	Yến
+1963	睁	zhēng	Mở
+1964	携	xī	Mang theo
+1965	陵	líng	Lăng
+1966	哼	hēng	Con người
+1967	棉	mián	Bông
+1968	晴	qíng	Nắng
+1969	铃	líng	Chuông
+1970	填	tián	Điền vào
+1971	饲	sì	Thức ăn chăn nuôi
+1972	渴	kě	Khát nước
+1973	吻	wěn	Nụ hôn
+1974	扮	bàn	Chơi
+1975	逆	nì	Đảo ngược
+1976	脆	cuì	Giòn
+1977	喘	chuǎn	Quần
+1978	罩	zhào	Mũ trùm đầu
+1979	卜	bǔ	Bu
+1980	炉	lú	Lò
+1981	柴	chái	Củi
+1982	愉	yú	Niềm vui
+1983	绳	shéng	Dây thừng
+1984	胎	tāi	Thai nhi
+1985	蓄	xù	Lưu trữ lên
+1986	眠	mián	Ngủ đi
+1987	竭	jié	Kiệt sức
+1988	喂	wèi	Xin chào
+1989	傻	shǎ	Ngốc
+1990	慕	mù	Chiêm ngưỡng
+1991	浑	hún	Bùn
+1992	奸	jiān	Hiếp dâm
+1993	扇	shàn	Quạt
+1994	柜	guì	Tủ
+1995	悦	yuè	Làm ơn
+1996	拦	lán	Chặn
+1997	诞	dàn	Sinh nhật
+1998	饱	bǎo	Đầy đủ
+1999	乾	gān	Khô
+2000	泡	pào	Ngâm
+2001	贼	zéi	Kẻ trộm
+2002	亭	tíng	Gian hàng
+2003	夕	xī	Đêm giao thừa
+2004	爹	diē	Bố
+2005	酬	chóu	Thanh toán
+2006	儒	rú	Nho giáo
+2007	姻	yīn	Hôn nhân
+2008	卵	luǎn	Trứng
+2009	氛	fēn	Khí quyển
+2010	泄	xiè	Lỗ thông hơi
+2011	杆	gān	Thanh
+2012	挨	āi	Khổ
+2013	僧	sēng	Nhà sư
+2014	蜜	mì	Em yêu
+2015	吟	yín	Tụng
+2016	猩	xīng	Đười ươi
+2017	遂	suì	Sau đó
+2018	狭	xiá	Thu hẹp
+2019	肖	xiào	Xiao
+2020	甜	tián	Ngọt ngào
+2021	霞	xiá	Tiểu Hạ
+2022	驳	bó	Từ chối
+2023	裕	yù	Dồi dào
+2024	顽	wán	Bướng bỉnh
+2025	於	yú	Bật
+2026	摘	zhāi	Chọn
+2027	矮	ǎi	Ngắn
+2028	秒	miǎo	Giây
+2029	卿	qīng	Thanh
+2030	畜	chù	Động vật
+2031	咽	yān	Cổ họng
+2032	披	pī	Phi
+2033	辅	fǔ	Trợ lý
+2034	勾	gōu	Móc
+2035	盆	pén	Nồi
+2036	疆	jiāng	Tân Cương
+2037	赌	dǔ	Đặt cược
+2038	塑	sù	Nhựa
+2039	畏	wèi	Sợ hãi
+2040	吵	chǎo	Không ồn ào
+2041	囊	náng	Túi đựng
+2042	嗯		Vâng
+2043	泊	bó	Đêm
+2044	肺	fèi	Phổi
+2045	骤	zòu	Đột nhiên
+2046	缠	chán	Vướng mắc
+2047	冈	gāng	Ôi
+2048	羞	xiū	Xấu hổ
+2049	瞪	dèng	Nhìn chằm chằm
+2050	吊	diào	Hằng
+2051	贾	jiǎ	Gia
+2052	漏	lòu	Rò rỉ
+2053	斑	bān	Tại chỗ
+2054	涛	tāo	Đạo
+2055	悠	yōu	Nhàn nhã
+2056	鹿	lù	Hươu
+2057	俘	fú	Chụp
+2058	锡	xí	Tin
+2059	卑	bēi	Khiêm tốn
+2060	葬	zàng	Chôn cất
+2061	铭	míng	Minh
+2062	滩	tān	Bãi biển
+2063	嫁	jià	Cô dâu
+2064	催	cuī	Thúc giục
+2065	璇	xuán	Xuân
+2066	翅	chì	Cánh
+2067	盒	hé	Hộp
+2068	蛮	mán	Khá
+2069	矣	yǐ	Mang theo
+2070	潘	pān	Pan
+2071	歧	qí	Bất đồng
+2072	赐	sì	Cho
+2073	鲍	bào	Bảo
+2074	锅	guō	Nồi
+2075	廊	láng	Thư viện ảnh
+2076	拆	chāi	Xé xuống
+2077	灌	guàn	Tưới
+2078	勉	miǎn	Trần
+2079	盲	máng	Mù
+2080	宰	zǎi	Giết mổ
+2081	佐	zuǒ	Zuo
+2082	啥	shà	Cái gì
+2083	胀	zhàng	Sưng
+2084	扯	chě	Kéo
+2085	禧	xǐ	Hân hoan
+2086	辽	liáo	Liao
+2087	抹	mǒ	Lau
+2088	筒	tǒng	Ống
+2089	棋	qí	Cờ vua
+2090	裤	kù	Quần
+2091	唉	āi	Than ôi
+2092	朴	pò	Công viên
+2093	咐	fù	Nói
+2094	孕	yùn	Mang thai
+2095	誓	shì	Lời thề
+2096	喉	hóu	Cổ họng
+2097	妄	wàng	Kiêu ngạo
+2098	拘	jū	Hạn chế
+2099	链	liàn	Chuỗi
+2100	驰	chí	Chi
+2101	栏	lán	Cột
+2102	逝	shì	Chết đi
+2103	窃	qiè	Ăn cắp
+2104	艳	yàn	Sặc sỡ
+2105	臭	chòu	Mùi hôi thối
+2106	纤	xiān	Chất xơ
+2107	玑	jī	Ji
+2108	棵	kē	Cây
+2109	趁	chèn	Tận dụng
+2110	匠	jiàng	Takumi
+2111	盈	yíng	Thặng dư
+2112	翁	wēng	Weng
+2113	愁	chóu	Lo lắng
+2114	瞬	shùn	Tức thì
+2115	婴	yīng	Em yêu
+2116	孝	xiào	Lòng hiếu thảo
+2117	颈	jǐng	Cổ
+2118	倘	tǎng	Nếu
+2119	浙	zhè	Chiết Giang
+2120	谅	liàng	Tha thứ
+2121	蔽	bì	Bìa
+2122	畅	chàng	Mịn màng
+2123	赠	zèng	Quà tặng
+2124	妮	nī	Ni
+2125	莎	shā	Sha
+2126	尉	wèi	Vĩ
+2127	冻	dòng	Đông lạnh
+2128	跪	guì	Quỳ
+2129	闯	chuǎng	Phá vỡ
+2130	葡	pú	Bồ Đào Nha
+2131	後	hòu	Sau
+2132	厨	chú	Bếp
+2133	鸭	yā	Vịt
+2134	颠	diān	Đảo ngược
+2135	遮	zhē	Bìa
+2136	谊	yí	Tình bạn
+2137	圳	zhèn	Chân
+2138	吁	xū	Gọi
+2139	仑	lún	Âm lịch
+2140	辟	pì	Phá vỡ
+2141	瘤	liú	Khối u
+2142	嫂	sǎo	Chị dâu
+2143	陀	tuó	Tuo
+2144	框	kuàng	Khung
+2145	谭	tán	Tân
+2146	亨	hēng	Hoành
+2147	钦	qīn	Cằm
+2148	庸	yōng	Tầm thường
+2149	歉	qiàn	Xin lỗi
+2150	芝	zhī	Shiba
+2151	吼	hǒu	Tiếng gầm
+2152	甫	fǔ	Chỉ
+2153	衫	shān	Áo sơ mi
+2154	摊	tān	Gian hàng
+2155	宴	yàn	Lễ
+2156	嘱	zhǔ	Khuyên răn
+2157	衷	zhōng	Trân trọng
+2158	娇	jiāo	Jiao
+2159	陕	shǎn	Thiểm Tây
+2160	矩	jǔ	Khoảnh khắc
+2161	浦	pǔ	Pu
+2162	讶	yà	Ngạc nhiên
+2163	耸	sǒng	Nhún vai
+2164	裸	luǒ	Khỏa thân
+2165	碧	bì	Màu xanh
+2166	摧	cuī	Phá hủy
+2167	薪	xīn	Lương
+2168	淋	lín	Vòi hoa sen
+2169	耻	chǐ	Xấu hổ
+2170	胶	xiáo	Keo dán
+2171	屠	tú	Giết mổ
+2172	鹅	é	Ngỗng
+2173	饥	jī	Đói
+2174	盼	pàn	Hy vọng
+2175	脖	bó	Cổ
+2176	虹	hóng	Cầu vồng
+2177	翠	cuì	Ngọc lục bảo
+2178	崩	bēng	Thu gọn
+2179	账	zhàng	Tài khoản
+2180	萍	píng	Bình
+2181	逢	féng	Mỗi
+2182	赚	zhuàn	Kiếm tiền
+2183	撑	chēng	Hỗ trợ
+2184	翔	xiáng	Tương
+2185	倡	chàng	Biện hộ
+2186	绵	mián	Bông
+2187	猴	hóu	Khỉ
+2188	枯	kū	Héo
+2189	巫	wū	Phù thủy
+2190	昭	zhāo	Triệu
+2191	怔	zhēng	Choáng váng
+2192	渊	yuān	Nguyên
+2193	凑	còu	Tham gia cùng nhau
+2194	溪	xī	Lạch
+2195	蠢	chǔn	Ngốc
+2196	禅	shàn	Thiền
+2197	阐	chǎn	Giải thích
+2198	旺	wàng	Thịnh vượng
+2199	寓	yù	Ở
+2200	藤	téng	Cây nho
+2201	匪	fěi	Tên cướp
+2202	伞	sǎn	Ô dù
+2203	碑	bēi	Tấm bia
+2204	挪	nuó	Di chuyển
+2205	琼	qióng	Joan
+2206	脂	zhī	Béo
+2207	谎	huǎng	Nói dối
+2208	慨	kǎi	Hào phóng
+2209	菩	pú	Bồ tát
+2210	萄	táo	Nho
+2211	狮	shī	Sư tử
+2212	掘	jué	Đào
+2213	抄	chāo	Sao chép
+2214	岭	líng	Sườn
+2215	晕	yūn	Hào quang
+2216	逮	dài	Bắt
+2217	砍	kǎn	Chặt
+2218	掏	tāo	Đào
+2219	狄	dí	Di
+2220	晰	xī	Xóa
+2221	罕	hǎn	Hiếm
+2222	挽	wǎn	Kéo
+2223	脾	pí	Lá lách
+2224	舟	zhōu	Thuyền
+2225	痴	chī	Ngốc
+2226	蔡	cài	Cái
+2227	剪	jiǎn	Cắt
+2228	脊	jí	Sườn
+2229	弓	gōng	Cung
+2230	懒	lǎn	Lười biếng
+2231	叉	chā	Ngã ba
+2232	拐	guǎi	Bắt cóc
+2233	喃	nán	Lẩm bẩm
+2234	僚	liáo	Quan chức
+2235	捐	juān	Quyên góp
+2236	姊	zǐ	Chị
+2237	骚	sāo	Sao
+2238	拓	tuò	Gia hạn
+2239	歪	wāi	Quanh co
+2240	粘	nián	Dính
+2241	柄	bǐng	Xử lý
+2242	坑	kēng	Hố
+2243	陌	mò	Mơ
+2244	窄	zhǎi	Thu hẹp
+2245	湘	xiāng	Tương
+2246	兆	zhào	Trillion
+2247	崖	yá	Vách đá
+2248	骄	jiāo	Kiêu ngạo
+2249	刹	chà	Phanh
+2250	鞭	biān	Roi da
+2251	芒	máng	Mang
+2252	筋	jīn	Cơ bắp
+2253	聘	pìn	Thuê
+2254	钩	gōu	Móc
+2255	棍	gùn	Cây gậy
+2256	嚷	rǎng	Tiếng hét
+2257	腺	xiàn	Tuyến
+2258	弦	xián	Chuỗi
+2259	焰	yàn	Ngọn lửa
+2260	耍	shuǎ	Chơi
+2261	俯	fǔ	Phần nhô ra
+2262	厘	lí	Cl
+2263	愣	lèng	Choáng váng
+2264	厦	shà	Tiểu Hạ
+2265	恳	kěn	Trân trọng
+2266	饶	ráo	Rao
+2267	钉	dīng	Móng tay
+2268	寡	guǎ	Góa phụ
+2269	憾	hàn	Hối hận
+2270	摔	shuāi	Mùa thu
+2271	叠	dié	Chồng
+2272	惹	rě	Cung cấp
+2273	喻	yù	Ẩn dụ
+2274	谱	pǔ	Quang phổ
+2275	愧	kuì	Xấu hổ
+2276	煌	huáng	Hoàng
+2277	徽	huī	Biểu tượng
+2278	溶	róng	Tan chảy
+2279	坠	zhuì	Mùa thu
+2280	煞	shā	Sha
+2281	巾	jīn	Khăn
+2282	滥	làn	Lạm dụng
+2283	洒	sǎ	Rắc
+2284	堵	dǔ	Chặn
+2285	瓷	cí	Sứ
+2286	咒	zhòu	Lời nguyền
+2287	姨	yí	Dì
+2288	棒	bàng	Tuyệt
+2289	郡	jùn	Quận
+2290	浴	yù	Tắm
+2291	媚	mèi	Duyên dáng
+2292	稣	sū	Chúa Giêsu
+2293	淮	huái	Hoài
+2294	哎	āi	Này
+2295	屁	pì	Đánh rắm
+2296	漆	qī	Sơn mài
+2297	淫	yín	Kinky
+2298	巢	cháo	Yến
+2299	吩	fēn	Hiện tượng
+2300	撰	zhuàn	Sáng tác
+2301	啸	xiào	Tiếng hú
+2302	滞	zhì	Đình trệ
+2303	玫	méi	Mei
+2304	硕	shuò	Thầy
+2305	钓	diào	Câu cá
+2306	蝶	dié	Bướm
+2307	膝	xī	Đầu gối
+2308	姚	yáo	Yao
+2309	茂	mào	Mao
+2310	躯	qū	Torso
+2311	吏	lì	Li
+2312	猿	yuán	Ape
+2313	寨	zhài	Tường
+2314	恕	shù	Xin lỗi
+2315	渠	qú	Kênh đào
+2316	戚	qī	Tề
+2317	辰	chén	Chen
+2318	舶	bó	Tàu
+2319	颁	bān	Giải thưởng
+2320	惶	huáng	Toàn diện
+2321	狐	hú	Cáo
+2322	讽	fēng	Satire
+2323	笨	bèn	Ngốc
+2324	袍	páo	Áo choàng
+2325	嘲	cháo	Mock
+2326	啡	fēi	Nâu
+2327	泼	pō	Giật gân
+2328	衔	xián	Tiêu đề
+2329	倦	juàn	Mệt mỏi
+2330	涵	hán	Cống
+2331	雀	què	Chim sẻ
+2332	旬	xún	Mùa
+2333	僵	jiāng	Cứng nhắc
+2334	撕	sī	Nước mắt
+2335	肢	zhī	Limb
+2336	垄	lǒng	Sườn
+2337	夷	yí	Cắt
+2338	逸	yì	Yi
+2339	茅	máo	Mao
+2340	侨	qiáo	Hoa kiều
+2341	舆	yú	Công cộng
+2342	窑	yáo	Lò nung
+2343	涅	niè	Ni
+2344	蒲	pú	Thơ
+2345	谦	qiān	Khiêm tốn
+2346	杭	háng	Hằng
+2347	噢	ō	Ồ
+2348	弊	bì	Nhược điểm
+2349	勋	xūn	Xun
+2350	刮	guā	Cạo
+2351	郊	jiāo	Ngoại ô
+2352	凄	qī	Tuyệt vời
+2353	捧	pěng	Giữ
+2354	浸	jìn	Nhúng
+2355	砖	zhuān	Gạch
+2356	鼎	dǐng	Chân máy
+2357	篮	lán	Giỏ
+2358	蒸	zhēng	Hơi nước
+2359	饼	bǐng	Bánh
+2360	亩	mǔ	Mẫu Anh
+2361	肾	shèn	Thận
+2362	陡	dǒu	Dốc
+2363	爪	zhuǎ	Móng tay
+2364	兔	tù	Thỏ
+2365	殷	yīn	Âm
+2366	贞	zhēn	Trinh tiết
+2367	荐	jiàn	Đề nghị
+2368	哑	yǎ	Ngốc
+2369	炭	tàn	Than củi
+2370	坟	fén	Mộ
+2371	眨	zhǎ	Nháy mắt
+2372	搏	bó	Đánh bại
+2373	咳	ké	Ho
+2374	拢	lǒng	Tập hợp
+2375	舅	jiù	Bác
+2376	昧	mèi	Mơ hồ
+2377	擅	shàn	Giỏi
+2378	爽	shuǎng	Tuyệt
+2379	咖	kā	Cà phê
+2380	搁	gē	Đặt sang một bên
+2381	禄	lù	Lu
+2382	雌	cí	Nữ
+2383	哨	shào	Còi
+2384	巩	gǒng	Công
+2385	绢	juàn	Lụa
+2386	螺	luó	Ốc sên
+2387	裹	guǒ	Bọc
+2388	昔	xī	Từ lâu
+2389	轩	xuān	Xuân
+2390	谬	miù	Ngụy biện
+2391	谍	dié	Gián điệp
+2392	龟	guī	Rùa
+2393	媳	xí	Vợ
+2394	姜	jiāng	Gừng
+2395	瞎	xiā	Mù
+2396	冤	yuān	Bất công
+2397	鸦	yā	Quạ
+2398	蓬	péng	Bành
+2399	巷	xiàng	Ngõ
+2400	琳	lín	Lâm
+2401	栽	zāi	Nhà máy
+2402	沾	zhān	Nhúng
+2403	诈	zhà	Gian lận
+2404	斋	zhāi	Nhanh
+2405	瞒	mán	Che giấu
+2406	彪	biāo	Biao
+2407	厄	è	E
+2408	咨	zī	Tham khảo ý kiến
+2409	纺	fǎng	Kéo sợi
+2410	罐	guàn	Có thể
+2411	桶	tǒng	Thùng
+2412	壤	rǎng	Đất
+2413	糕	gāo	Bánh
+2414	颂	sòng	Ôi
+2415	膨	péng	Sưng
+2416	谐	xié	Hài hòa
+2417	垒	lěi	Cơ sở
+2418	咕	gū	Goo
+2419	隙	xì	Khoảng cách
+2420	辣	là	Cay
+2421	绑	bǎng	Bị trói
+2422	宠	chǒng	Thú cưng
+2423	嘿	hēi	Này
+2424	兑	duì	Tiền mặt
+2425	霉	méi	Khuôn
+2426	挫	cuò	Thất vọng
+2427	稽	jī	Kiểm tra
+2428	辐	fú	Nói
+2429	乞	qǐ	Bắt đầu
+2430	纱	shā	Sợi
+2431	裙	qún	Váy
+2432	嘻	xī	Hê hê
+2433	哇	wā	Ồ
+2434	绣	xiù	Thêu
+2435	杖	zhàng	Mía
+2436	塘	táng	Ao
+2437	衍	yǎn	Yan
+2438	轴	zhóu	Trục
+2439	攀	pān	Leo lên
+2440	膊	bó	Vai
+2441	譬	pì	Ví dụ
+2442	斌	bīn	Thùng
+2443	祈	qí	Cầu nguyện
+2444	踢	tī	Đá
+2445	肆	sì	Bừa bãi
+2446	坎	kǎn	Kan
+2447	轿	jiào	Sedan
+2448	棚	péng	Kệ
+2449	泣	qì	Khóc
+2450	屡	lǚ	Lặp đi lặp lại
+2451	躁	zào	Không ngừng nghỉ
+2452	邱	qiū	Qiu
+2453	凰	huáng	Phượng hoàng
+2454	溢	yì	Tràn
+2455	椎	zhuī	Đốt sống
+2456	砸	zá	Đập vỡ
+2457	趟	tàng	Chuyến đi
+2458	帘	lián	Rèm
+2459	帆	fān	Cánh buồm
+2460	栖	qī	Cá rô
+2461	窜	cuàn	Kênh
+2462	丸	wán	Maru
+2463	斩	zhǎn	Cắt
+2464	堤	dī	Đê
+2465	塌	tā	Thu gọn
+2466	贩	fàn	Người bán hàng rong
+2467	厢	xiāng	Khoang
+2468	掀	xiān	Nâng
+2469	喀	kā	Ka
+2470	乖	guāi	Tốt
+2471	谜	mí	Câu đố
+2472	捏	niē	Véo
+2473	阎	yán	Yan
+2474	滨	bīn	Hama
+2475	虏	lǔ	Bị bắt
+2476	匙	chí	Muỗng
+2477	芦	lú	Tro
+2478	苹	píng	Táo
+2479	卸	xiè	Bán buôn
+2480	沼	zhǎo	Numa
+2481	钥	yào	Chìa khóa
+2482	株	zhū	Chứng khoán
+2483	祷	dǎo	Cầu nguyện
+2484	剖	pōu	Cắt
+2485	熙	xī	Xi
+2486	哗	huā	Ồ
+2487	劈	pī	Chặt
+2488	怯	qiè	Rụt rè
+2489	棠	táng	Đường
+2490	胳	gē	Bọ
+2491	桩	zhuāng	Cọc
+2492	瑰	guī	Hoa hồng
+2493	娱	yú	Giải trí
+2494	娶	qǔ	Kết hôn
+2495	沫	mò	Bọt
+2496	嗓	sǎng	Giọng nói
+2497	蹲	dūn	Ngồi xổm
+2498	焚	fén	Đốt
+2499	淘	táo	Amoy
+2500	嫩	nèn	Đấu thầu
+2501	韵	yùn	Vần
+2502	衬	chèn	Lót
+2503	匈	xiōng	Hungary
+2504	钧	jūn	Tháng sáu
+2505	竖	shù	Dọc
+2506	峻	jùn	Dốc
+2507	豹	bào	Con báo
+2508	捞	lāo	Câu cá
+2509	菊	jú	Hoa cúc
+2510	鄙	bǐ	Khiêm tốn
+2511	魄	pò	Thần
+2512	兜	dōu	Túi
+2513	哄	hōng	Dỗ
+2514	颖	yǐng	Ying
+2515	镑	bàng	Bảng Anh
+2516	屑	xiè	Phế liệu
+2517	蚁	yǐ	Kiến
+2518	壶	hú	Nồi
+2519	怡	yí	Dễ chịu
+2520	渗	shèn	Xâm nhập
+2521	秃	tū	Hói đầu
+2522	迦	jiā	Gia
+2523	旱	hàn	Hạn hán
+2524	哟	yo	Bạn
+2525	咸	xián	Mặn
+2526	焉	yān	Yan
+2527	谴	qiǎn	Lên án
+2528	宛	wǎn	Địa chỉ
+2529	稻	dào	Gạo
+2530	铸	zhù	Diễn viên
+2531	锻	duàn	Rèn
+2532	伽	qié	Gamma
+2533	詹	zhān	Tháng giêng
+2534	毙	bì	Chết đi
+2535	恍	huǎng	Trance
+2536	贬	biǎn	Xuống cấp
+2537	烛	zhú	Nến
+2538	骇	hài	Kinh hoàng
+2539	芯	xīn	Lõi
+2540	汁	zhī	Súp
+2541	桓	huán	Huân
+2542	坊	fāng	Phương
+2543	驴	lǘ	Con lừa
+2544	朽	xiǔ	Sâu răng
+2545	靖	jìng	Tĩnh
+2546	佣	yòng	Người giúp việc
+2547	汝	rǔ	Ru
+2548	碌	lù	Bận
+2549	迄	qì	Cho đến khi
+2550	冀	jì	Ji
+2551	荆	jīng	Tĩnh
+2552	崔	cuī	Choi
+2553	雁	yàn	Ngỗng hoang
+2554	绅	shēn	Quý ông
+2555	珊	shān	Sơn
+2556	榜	bǎng	Danh sách
+2557	诵	sòng	Đọc thuộc lòng
+2558	傍	bàng	Gần
+2559	彦	yàn	Yan
+2560	醇	chún	Rượu
+2561	笛	dí	Sáo
+2562	禽	qín	Gia cầm
+2563	勿	wù	Đừng
+2564	娟	juān	Juan
+2565	瞄	miáo	Mục tiêu
+2566	幢	chuáng	Tòa nhà
+2567	寇	kòu	Kou
+2568	睹	dǔ	Xem
+2569	贿	huì	Hối lộ
+2570	踩	cǎi	Không thích
+2571	霆	tíng	Ting
+2572	呜	wū	Woo
+2573	拱	gǒng	Cổng vòm
+2574	妃	fēi	Thê thiếp
+2575	蔑	miè	Khinh bỉ
+2576	谕	yù	Oracle
+2577	缚	fú	Ràng buộc
+2578	诡	guǐ	Lạ
+2579	篷	péng	Mái hiên
+2580	淹	yān	Lũ lụt
+2581	腕	wàn	Cánh tay
+2582	煮	zhǔ	Đun sôi
+2583	倩	qiàn	Qian
+2584	卒	zú	Tốt nghiệp
+2585	勘	kān	Khảo sát
+2586	馨	xīn	Xin chào
+2587	逗	dòu	Trêu chọc
+2588	甸	diàn	Dần
+2589	贱	jiàn	Giá rẻ
+2590	炒	chǎo	Xào
+2591	灿	càn	Có thể
+2592	敞	chǎng	Mở
+2593	蜡	là	Sáp
+2594	囚	qiú	Tù nhân
+2595	栗	lì	Hạt dẻ
+2596	辜	gū	Gu
+2597	垫	diàn	Đệm
+2598	妒	dù	Ghen tị
+2599	魁	kuí	Qu
+2600	谣	yáo	Tin đồn
+2601	寞	mò	Cô đơn
+2602	蜀	shǔ	Thư
+2603	甩	shuǎi	Ném
+2604	涯	yá	Ơ
+2605	枕	zhěn	Gối
+2606	丐	gài	Ăn xin
+2607	泳	yǒng	Bơi
+2608	奎	kuí	Kui
+2609	泌	mì	Bí mật
+2610	逾	yú	Kết thúc
+2611	叮	dīng	Đinh
+2612	黛	dài	Đại
+2613	燥	zào	Khô
+2614	掷	zhí	Ném
+2615	藉	jiè	Vay
+2616	枢	shū	Xoay vòng
+2617	憎	zēng	Ghét
+2618	鲸	jīng	Cá voi
+2619	弘	hóng	Hiro
+2620	倚	yǐ	Lean
+2621	侮	wǔ	Xúc phạm
+2622	藩	fán	Bang hội
+2623	拂	fú	Râu
+2624	鹤	hè	Cẩu
+2625	蚀	shí	Nhật thực
+2626	浆	jiāng	Bột giấy
+2627	芙	fú	Fu
+2628	垃	lā	Rác
+2629	烤	kǎo	Nướng
+2630	晒	shài	Mặt trời
+2631	霜	shuāng	Sương giá
+2632	剿	jiǎo	Ức chế
+2633	蕴	yùn	Vân
+2634	圾	jí	Rác
+2635	绸	chóu	Lụa
+2636	屿	yǔ	Vũ
+2637	氢	qīng	Hydro
+2638	驼	tuó	Lạc đà
+2639	妆	zhuāng	Trang điểm
+2640	捆	kǔn	Bale
+2641	铅	qiān	Chì
+2642	逛	guàng	Đi dạo
+2643	淑	shú	Thư
+2644	榴	liú	Sầu riêng
+2645	丙	bǐng	C
+2646	痒	yǎng	Ngứa
+2647	钞	chāo	Tiền giấy
+2648	蹄	tí	Cuốc
+2649	犬	quǎn	Chó
+2650	躬	gōng	Cung
+2651	昼	zhòu	Trưa
+2652	藻	zǎo	Tảo
+2653	蛛	zhū	Nhện
+2654	褐	hé	Nâu
+2655	颊	jiá	Má
+2656	奠	diàn	Lay
+2657	募	mù	Tăng
+2658	耽	dān	Trì hoãn
+2659	蹈	dǎo	Nhảy múa
+2660	陋	lòu	Xấu xí
+2661	侣	lǚ	Cặp đôi
+2662	魅	mèi	Bùa chú
+2663	岚	lán	Arashi
+2664	侄	zhí	Cháu trai
+2665	虐	nüè	Lạm dụng
+2666	堕	duò	Mùa thu
+2667	陛	bì	Hàn
+2668	莹	yíng	Ying
+2669	荫	yìn	Bóng râm
+2670	狡	jiǎo	Xảo quyệt
+2671	阀	fá	Van
+2672	绞	jiǎo	Xoắn
+2673	膏	gāo	Thuốc mỡ
+2674	垮	kuǎ	Thu gọn
+2675	茎	jīng	Thân cây
+2676	缅	miǎn	Myanmar
+2677	喇	lǎ	La
+2678	绒	róng	Cashmere
+2679	搅	jiǎo	Khuấy
+2680	凳	dèng	Phân
+2681	梭	suō	Xe đưa đón
+2682	丫	yā	Ơ
+2683	姬	jī	Ji
+2684	诏	zhào	Đạo luật
+2685	钮	niǔ	Nút
+2686	棺	guān	Quan tài
+2687	耿	gěng	Geng
+2688	缔	dì	Cộng sự
+2689	懈	xiè	Không mệt mỏi
+2690	嫉	jí	Ghen tị
+2691	灶	zào	Bếp lò
+2692	匀	yún	Đồng phục
+2693	嗣	sì	Người thừa kế
+2694	鸽	gē	Bồ câu
+2695	澡	zǎo	Tắm
+2696	凿	záo	Đục
+2697	纬	wěi	Sợi ngang
+2698	沸	fèi	Đun sôi
+2699	畴	chóu	Tên miền
+2700	刃	rèn	Lưỡi dao
+2701	遏	è	Chứa
+2702	烁	shuò	Lấp lánh
+2703	嗅	xiù	Ngửi
+2704	叭	bā	Bang
+2705	熬	áo	Đun sôi
+2706	瞥	piē	Nhìn thoáng qua
+2707	骸	hái	Bộ xương
+2708	奢	shē	Ngông cuồng
+2709	拙	zhuó	Vụng về
+2710	栋	dòng	Đồng
+2711	毯	tǎn	Chăn
+2712	桐	tóng	Tống
+2713	砂	shā	Cát
+2714	莽	mǎng	Phát ban
+2715	泻	xiè	Tiêu chảy
+2716	坪	píng	Bình
+2717	梳	shū	Lược
+2718	杉	shān	Gỗ tuyết tùng
+2719	晤	wù	Gặp gỡ
+2720	稚	zhì	Ngây thơ
+2721	蔬	shū	Rau
+2722	蝇	yíng	Ruồi
+2723	捣	dǎo	Bảng Anh
+2724	顷	qǐng	Thanh
+2725	麽	mo	Cái gì
+2726	尴	gān	Xấu hổ
+2727	镖	biāo	Phi tiêu
+2728	诧	chà	Bất ngờ
+2729	尬	gà	Lúng túng
+2730	硫	liú	Lưu huỳnh
+2731	嚼	jiáo	Nhai
+2732	羡	xiàn	Ghen tị
+2733	沦	lún	Mùa thu
+2734	沪	hù	Thượng Hải
+2735	旷	kuàng	Kuang
+2736	彬	bīn	Thùng
+2737	芽	yá	Nụ
+2738	狸	lí	Gấu trúc
+2739	冥	míng	Thế giới ngầm
+2740	碳	tàn	Carbon
+2741	咧	liě	Cười toe toét
+2742	惕	tì	Cảnh giác
+2743	暑	shǔ	Nhiệt
+2744	咯	gē	Hơi
+2745	萝	luó	Thì là
+2746	汹	xiōng	Mạnh mẽ
+2747	腥	xīng	Cá
+2748	窥	kuī	Nhìn trộm
+2749	俺	ǎn	Tôi
+2750	潭	tán	Tân
+2751	崎	qí	Tề
+2752	麟	lín	Lâm
+2753	捡	jiǎn	Đón
+2754	拯	zhěng	Lưu lại
+2755	厥	jué	Ju
+2756	澄	chéng	Thành
+2757	萎	wēi	Héo
+2758	哉	zāi	Zai
+2759	涡	wō	Xoáy
+2760	滔	tāo	Đạo
+2761	暇	xiá	Thời gian rảnh
+2762	溯	sù	Dấu vết
+2763	鳞	lín	Cân
+2764	酿	niàng	Bia
+2765	茵	yīn	Âm
+2766	愕	è	Choáng váng
+2767	瞅	chǒu	Nhìn thoáng qua
+2768	暮	mù	Hoàng hôn
+2769	衙	yá	Ơ
+2770	诫	jiè	Điều răn
+2771	斧	fǔ	Rìu
+2772	兮	xī	Xi
+2773	焕	huàn	Huân
+2774	棕	zōng	Nâu
+2775	佑	yòu	Woo
+2776	嘶	sī	Tiếng rít
+2777	妓	jì	Gái điếm
+2778	喧	xuān	Tiếng ồn
+2779	蓉	róng	Rong
+2780	删	shān	Xóa
+2781	樱	yīng	Hoa anh đào
+2782	伺	sì	Đợi đã
+2783	嗡	wēng	Buzz
+2784	娥	é	E
+2785	梢	shāo	Mẹo
+2786	坝	bà	Đầm
+2787	蚕	cán	Tằm
+2788	敷	fū	Áp dụng
+2789	澜	lán	Lan
+2790	杏	xìng	Hoa mai
+2791	绥	suī	Tùy
+2792	冶	yě	Xì trum
+2793	庇	bì	Nơi trú ẩn
+2794	挠	náo	Cào
+2795	搂	lǒu	Ôm
+2796	倏	shū	Buồn
+2797	聂	niè	Không
+2798	婉	wǎn	Duyên dáng
+2799	噪	zào	Tiếng ồn
+2800	稼	jià	Cây trồng
+2801	鳍	qí	Vây
+2802	菱	líng	Hạt dẻ nước
+2803	盏	zhǎn	Nồi
+2804	匿	nì	Ẩn
+2805	吱	zhī	Tiếng rít
+2806	寝	qǐn	Ngủ
+2807	揽	lǎn	Giữ
+2808	髓	suǐ	Tủy
+2809	秉	bǐng	Ưu tiên
+2810	哺	bǔ	Thức ăn chăn nuôi
+2811	矢	shǐ	Ơ
+2812	啪	pā	Nứt
+2813	帜	zhì	Cờ
+2814	邵	shào	Thiệu
+2815	嗽	sòu	Ho
+2816	挟	xié	Giữ
+2817	缸	gāng	Xi lanh
+2818	揉	róu	Quỳ
+2819	腻	nì	Mệt mỏi
+2820	驯	xún	Chế ngự
+2821	缆	làn	Cáp
+2822	晌	shǎng	Dài
+2823	瘫	tān	Bị liệt
+2824	贮	zhǔ	Cửa hàng
+2825	觅	mì	Tìm kiếm
+2826	朦	méng	Tối nghĩa
+2827	僻	pì	Tách biệt
+2828	隋	suí	Tùy
+2829	蔓	màn	Người đàn ông
+2830	咋	zhà	Bạn
+2831	嵌	qiàn	Nhúng
+2832	虔	qián	Lòng đạo đức
+2833	畔	pàn	Ngân hàng
+2834	琐	suǒ	Tầm thường
+2835	碟	dié	Món ăn
+2836	涩	sè	Chất làm se
+2837	胧	lóng	Nguy hiểm
+2838	嘟	dū	Bíp
+2839	蹦	bèng	Bounce
+2840	冢	zhǒng	Gò
+2841	浏	liú	Duyệt
+2842	裔	yì	Xuất thân
+2843	襟	jīn	Cổ áo
+2844	叨	tāo	Cắt tỉa
+2845	诀	jué	Thủ thuật
+2846	旭	xù	Asahi
+2847	虾	xiā	Tôm
+2848	簿	bù	Sách
+2849	啤	pí	Bia
+2850	擒	qín	Bắt
+2851	枣	zǎo	Táo tàu
+2852	嘎	gā	Ga
+2853	苑	yuàn	Tòa án
+2854	牟	móu	Mou
+2855	呕	ōu	Bịt miệng
+2856	骆	luò	Lạc
+2857	凸	tū	Lồi
+2858	熄	xí	Dập tắt
+2859	兀	wù	Gỗ
+2860	喔	ō	Ồ
+2861	裳	cháng	Váy
+2862	凹	āo	Lõm
+2863	赎	shú	Mua lại
+2864	屯	tún	Tun
+2865	膛	táng	Đường kính
+2866	浇	jiāo	Đổ
+2867	灼	zhuó	Đốt
+2868	裘	qiú	Qiu
+2869	砰	pēng	Bang
+2870	棘	jí	Gai
+2871	橡	xiàng	Sồi
+2872	碱	jiǎn	Kiềm
+2873	聋	lóng	Điếc
+2874	姥	mǔ	Bà
+2875	瑜	yú	Vũ
+2876	毋	wú	Không
+2877	娅	yà	Ơ
+2878	沮	jū	Ju
+2879	萌	méng	Dễ thương
+2880	俏	qiào	Khá
+2881	黯	àn	Tối
+2882	撇	piē	Lướt
+2883	粟	sù	Hạt kê
+2884	粪	fèn	Dũng
+2885	尹	yǐn	Âm
+2886	苟	gǒu	Gou
+2887	癫	diān	Động kinh
+2888	蚂	mǎ	Kiến
+2889	禹	yǔ	Vũ
+2890	廖	liào	Liao
+2891	俭	jiǎn	Tiết kiệm
+2892	帖	tiē	Bài viết
+2893	煎	jiān	Chiên
+2894	缕	lǚ	Trí tuệ
+2895	窦	dòu	Xoang
+2896	簇	cù	Cụm
+2897	棱	léng	Cạnh
+2898	叩	kòu	Gõ
+2899	呐	nè	Na
+2900	瑶	yáo	Yao
+2901	墅	shù	Biệt thự
+2902	莺	yīng	Chim chích
+2903	烫	tàng	Nóng
+2904	蛙	wā	Ếch
+2905	歹	dǎi	Ác
+2906	伶	líng	Linh
+2907	葱	cōng	Hành tây
+2908	哮	xiāo	Gầm gừ
+2909	眩	xuàn	Chóng mặt
+2910	坤	kūn	Côn
+2911	廓	kuò	Hồ sơ
+2912	讳	huì	Điều cấm kỵ
+2913	啼	tí	Khóc
+2914	乍	zhà	Thoạt nhìn
+2915	瓣	bàn	Cánh hoa
+2916	矫	jiǎo	Đúng
+2917	跋	bá	Bài viết
+2918	枉	wǎng	Vô ích
+2919	梗	gěng	Thân cây
+2920	厕	cè	Nhà vệ sinh
+2921	琢	zhuó	Cắt
+2922	讥	jī	Người chế nhạo
+2923	釉	yòu	Men
+2924	窟	kū	Hang động
+2925	敛	liàn	Hội tụ
+2926	轼	shì	Shi
+2927	庐	lú	Lu
+2928	胚	pēi	Phôi
+2929	呻	shēn	Ôi
+2930	绰	chuò	Deft
+2931	扼	è	Sặc
+2932	懿	yì	Yi
+2933	炯	jiǒng	Jiong
+2934	竿	gān	Cực
+2935	慷	kāng	Hào phóng
+2936	虞	yú	Vũ
+2937	锤	chuí	Búa
+2938	栓	shuān	Thuốc đạn
+2939	桨	jiǎng	Mái chèo
+2940	蚊	wén	Muỗi
+2941	磅	bàng	Bảng Anh
+2942	孽	niè	Tội lỗi
+2943	惭	cán	Xấu hổ
+2944	戳	chuō	Chọc
+2945	禀	bǐng	Âm
+2946	鄂	è	Hồ Bắc
+2947	馈	kuì	Thức ăn chăn nuôi
+2948	垣	yuán	Nguyên
+2949	溅	jiàn	Giật gân
+2950	咚	dōng	Đồng
+2951	钙	gài	Canxi
+2952	礁	jiāo	Rạn san hô
+2953	彰	zhāng	Hiển thị
+2954	豁	huō	Khoảng cách
+2955	眯	mǐ	Nheo mắt
+2956	磷	lín	Photpho
+2957	雯	wén	Ôn
+2958	墟	xū	Chợ
+2959	迂	yū	Bùng binh
+2960	瞻	zhān	Mong chờ
+2961	颅	lú	Sọ
+2962	琉	liú	Lưu
+2963	悼	dào	Thương tiếc
+2964	蝴	hú	Bướm
+2965	拣	jiǎn	Chọn
+2966	渺	miǎo	Không đáng kể
+2967	眷	juàn	Người phụ thuộc
+2968	悯	mǐn	Lòng thương xót
+2969	汰	tài	Giảm
+2970	慑	shè	Răn đe
+2971	婶	shěn	Dì
+2972	斐	fěi	Phi-gi
+2973	嘘	xū	Nói dối
+2974	镶	xiāng	Inlay
+2975	炕	kàng	Kang
+2976	宦	huàn	Hoạn quan
+2977	趴	pā	Nằm xuống
+2978	绷	bēng	Căng
+2979	窘	jiǒng	Xấu hổ
+2980	襄	xiāng	Tương
+2981	珀	pò	Thơ
+2982	嚣	xiāo	Yêu cầu
+2983	拚	pàn	Đánh nhau
+2984	酌	zhuó	Thận trọng
+2985	浊	zhuó	Bùn
+2986	毓	yù	Vũ
+2987	撼	hàn	Lắc
+2988	嗜	shì	Nghiện
+2989	扛	káng	Mang theo
+2990	峭	qiào	Dốc
+2991	磕	kē	Gõ
+2992	翘	qiáo	Warp
+2993	槽	cáo	Khe cắm
+2994	淌	tǎng	Dòng chảy
+2995	栅	zhà	Lưới
+2996	颓	tuí	Suy đồi
+2997	熏	xūn	Hút thuốc
+2998	瑛	yīng	Ying
+2999	颐	yí	Yi
+3000	忖	cǔn	Khó chịu
+\.
+
+
+--
+-- Data for Name: api_lesson; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_lesson (id, name, book_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_message; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_message (id, subject, body) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_user (id, password, last_login, is_superuser, first_name, last_name, is_staff, is_active, date_joined, username, email) FROM stdin;
+1	pbkdf2_sha256$150000$YdEhlzvGRfFC$HcwsbKUnBfL72fQZmKl1FqSHSusEdcut7qTky6cwXD0=	\N	f	duan	huynh	f	t	2020-04-23 16:33:58.633604+07	\N	duancba@gmail.com
+\.
+
+
+--
+-- Data for Name: api_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_userprofile; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_userprofile (id, title, address, avatar, user_id) FROM stdin;
+1				1
+\.
+
+
+--
+-- Data for Name: api_wordinlesson; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.api_wordinlesson (id, chinese, pinyin, vietnamese, lesson_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add content type	4	add_contenttype
+14	Can change content type	4	change_contenttype
+15	Can delete content type	4	delete_contenttype
+16	Can view content type	4	view_contenttype
+17	Can add session	5	add_session
+18	Can change session	5	change_session
+19	Can delete session	5	delete_session
+20	Can view session	5	view_session
+21	Can add Token	6	add_token
+22	Can change Token	6	change_token
+23	Can delete Token	6	delete_token
+24	Can view Token	6	view_token
+25	Can add user	7	add_user
+26	Can change user	7	change_user
+27	Can delete user	7	delete_user
+28	Can view user	7	view_user
+29	Can add lesson	8	add_lesson
+30	Can change lesson	8	change_lesson
+31	Can delete lesson	8	delete_lesson
+32	Can view lesson	8	view_lesson
+33	Can add message	9	add_message
+34	Can change message	9	change_message
+35	Can delete message	9	delete_message
+36	Can view message	9	view_message
+37	Can add user profile	10	add_userprofile
+38	Can change user profile	10	change_userprofile
+39	Can delete user profile	10	delete_userprofile
+40	Can view user profile	10	view_userprofile
+41	Can add book	11	add_book
+42	Can change book	11	change_book
+43	Can delete book	11	delete_book
+44	Can view book	11	view_book
+45	Can add common chinese	12	add_commonchinese
+46	Can change common chinese	12	change_commonchinese
+47	Can delete common chinese	12	delete_commonchinese
+48	Can view common chinese	12	view_commonchinese
+49	Can add word in lesson	13	add_wordinlesson
+50	Can change word in lesson	13	change_wordinlesson
+51	Can delete word in lesson	13	delete_wordinlesson
+52	Can view word in lesson	13	view_wordinlesson
+\.
+
+
+--
+-- Data for Name: authtoken_token; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.authtoken_token (key, created, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	contenttypes	contenttype
+5	sessions	session
+6	authtoken	token
+7	api	user
+8	api	lesson
+9	api	message
+10	api	userprofile
+11	api	book
+12	api	commonchinese
+13	api	wordinlesson
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2020-04-23 10:53:48.176619+07
+2	contenttypes	0002_remove_content_type_name	2020-04-23 10:53:48.231532+07
+3	auth	0001_initial	2020-04-23 10:53:48.279698+07
+4	auth	0002_alter_permission_name_max_length	2020-04-23 10:53:48.318627+07
+5	auth	0003_alter_user_email_max_length	2020-04-23 10:53:48.326556+07
+6	auth	0004_alter_user_username_opts	2020-04-23 10:53:48.334666+07
+7	auth	0005_alter_user_last_login_null	2020-04-23 10:53:48.348181+07
+8	auth	0006_require_contenttypes_0002	2020-04-23 10:53:48.354666+07
+9	auth	0007_alter_validators_add_error_messages	2020-04-23 10:53:48.372728+07
+10	auth	0008_alter_user_username_max_length	2020-04-23 10:53:48.396285+07
+11	auth	0009_alter_user_last_name_max_length	2020-04-23 10:53:48.411697+07
+12	auth	0010_alter_group_name_max_length	2020-04-23 10:53:48.438882+07
+13	auth	0011_update_proxy_permissions	2020-04-23 10:53:48.464567+07
+14	api	0001_initial	2020-04-23 10:53:48.601101+07
+15	admin	0001_initial	2020-04-23 10:53:48.644385+07
+16	admin	0002_logentry_remove_auto_add	2020-04-23 10:53:48.694325+07
+17	admin	0003_logentry_add_action_flag_choices	2020-04-23 10:53:48.725011+07
+18	api	0002_auto_20200415_0707	2020-04-23 10:53:48.827458+07
+19	api	0003_auto_20200416_0751	2020-04-23 10:53:48.841498+07
+20	api	0004_auto_20200418_1627	2020-04-23 10:53:48.904635+07
+21	api	0005_auto_20200418_1757	2020-04-23 10:53:48.90952+07
+22	api	0006_auto_20200418_1758	2020-04-23 10:53:48.914377+07
+23	authtoken	0001_initial	2020-04-23 10:53:48.942934+07
+24	authtoken	0002_auto_20160226_1747	2020-04-23 10:53:49.071802+07
+25	sessions	0001_initial	2020-04-23 10:53:49.080074+07
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Name: api_book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_book_id_seq', 1, false);
+
+
+--
+-- Name: api_commonchinese_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_commonchinese_id_seq', 3000, true);
+
+
+--
+-- Name: api_lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_lesson_id_seq', 1, false);
+
+
+--
+-- Name: api_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_message_id_seq', 1, false);
+
+
+--
+-- Name: api_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: api_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_user_id_seq', 1, true);
+
+
+--
+-- Name: api_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: api_userprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_userprofile_id_seq', 1, true);
+
+
+--
+-- Name: api_word_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.api_word_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 52, true);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 25, true);
+
+
+--
+-- Name: api_book api_book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_book
+    ADD CONSTRAINT api_book_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_commonchinese api_commonchinese_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_commonchinese
+    ADD CONSTRAINT api_commonchinese_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_lesson api_lesson_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_lesson
+    ADD CONSTRAINT api_lesson_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_message api_message_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_message
+    ADD CONSTRAINT api_message_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_user api_user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user
+    ADD CONSTRAINT api_user_email_key UNIQUE (email);
+
+
+--
+-- Name: api_user_groups api_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_groups
+    ADD CONSTRAINT api_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_user_groups api_user_groups_user_id_group_id_9c7ddfb5_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_groups
+    ADD CONSTRAINT api_user_groups_user_id_group_id_9c7ddfb5_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: api_user api_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user
+    ADD CONSTRAINT api_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_user_user_permissions api_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_user_permissions
+    ADD CONSTRAINT api_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_user_user_permissions api_user_user_permissions_user_id_permission_id_a06dd704_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_user_permissions
+    ADD CONSTRAINT api_user_user_permissions_user_id_permission_id_a06dd704_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: api_userprofile api_userprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_userprofile
+    ADD CONSTRAINT api_userprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_userprofile api_userprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_userprofile
+    ADD CONSTRAINT api_userprofile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: api_wordinlesson api_word_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_wordinlesson
+    ADD CONSTRAINT api_word_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authtoken_token authtoken_token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authtoken_token
+    ADD CONSTRAINT authtoken_token_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: authtoken_token authtoken_token_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: api_lesson_book_id_11bde7d8; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_lesson_book_id_11bde7d8 ON public.api_lesson USING btree (book_id);
+
+
+--
+-- Name: api_user_email_9ef5afa6_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_user_email_9ef5afa6_like ON public.api_user USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: api_user_groups_group_id_3af85785; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_user_groups_group_id_3af85785 ON public.api_user_groups USING btree (group_id);
+
+
+--
+-- Name: api_user_groups_user_id_a5ff39fa; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_user_groups_user_id_a5ff39fa ON public.api_user_groups USING btree (user_id);
+
+
+--
+-- Name: api_user_user_permissions_permission_id_305b7fea; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_user_user_permissions_permission_id_305b7fea ON public.api_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: api_user_user_permissions_user_id_f3945d65; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_user_user_permissions_user_id_f3945d65 ON public.api_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: api_word_lesson_id_ee17c753; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX api_word_lesson_id_ee17c753 ON public.api_wordinlesson USING btree (lesson_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: authtoken_token_key_10f0b77e_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX authtoken_token_key_10f0b77e_like ON public.authtoken_token USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: api_lesson api_lesson_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_lesson
+    ADD CONSTRAINT api_lesson_book_id_fkey FOREIGN KEY (book_id) REFERENCES public.api_book(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_user_groups api_user_groups_group_id_3af85785_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_groups
+    ADD CONSTRAINT api_user_groups_group_id_3af85785_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_user_groups api_user_groups_user_id_a5ff39fa_fk_api_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_groups
+    ADD CONSTRAINT api_user_groups_user_id_a5ff39fa_fk_api_user_id FOREIGN KEY (user_id) REFERENCES public.api_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_user_user_permissions api_user_user_permis_permission_id_305b7fea_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_user_permissions
+    ADD CONSTRAINT api_user_user_permis_permission_id_305b7fea_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_user_user_permissions api_user_user_permissions_user_id_f3945d65_fk_api_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_user_user_permissions
+    ADD CONSTRAINT api_user_user_permissions_user_id_f3945d65_fk_api_user_id FOREIGN KEY (user_id) REFERENCES public.api_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_userprofile api_userprofile_user_id_5a1c1c92_fk_api_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_userprofile
+    ADD CONSTRAINT api_userprofile_user_id_5a1c1c92_fk_api_user_id FOREIGN KEY (user_id) REFERENCES public.api_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_wordinlesson api_word_lesson_id_ee17c753_fk_api_lesson_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.api_wordinlesson
+    ADD CONSTRAINT api_word_lesson_id_ee17c753_fk_api_lesson_id FOREIGN KEY (lesson_id) REFERENCES public.api_lesson(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authtoken_token authtoken_token_user_id_35299eff_fk_api_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_35299eff_fk_api_user_id FOREIGN KEY (user_id) REFERENCES public.api_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_api_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_api_user_id FOREIGN KEY (user_id) REFERENCES public.api_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
